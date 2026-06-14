@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loyalty Program Management</title>
+  <link rel="stylesheet" href="css/cro_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Customer Relationship Officer</h1>
+    <p>Manage loyalty points, levels, and rewards</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>CRO Menu</h2>
+      <a href="customer_relationship_officer_dashboard.html">Dashboard</a>
+      <a href="add_customer.html">Add Customer</a>
+      <a href="update_search_customer.html">Update/Search Customer</a>
+      <a href="customer_purchase_history.html">Purchase History</a>
+      <a href="complaint_management.html">Complaint Management</a>
+      <a class="active" href="loyalty_program_management.html">Loyalty Programs</a>
+      <a href="promotional_notification.html">Promotional Notifications</a>
+      <a href="customer_activity_reports.html">Activity Reports</a>
+    </nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Loyalty Program Management</h2>
+        <p>Update customer loyalty details and reward information.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Update Loyalty Details</h3>
+        <form id="loyaltyForm" action="update_loyalty.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="loyaltyCustomerId">Customer ID</label>
+              <input type="text" id="loyaltyCustomerId" name="customer_id" required>
+            </div>
+            <div class="form-group">
+              <label for="membershipLevel">Membership Level</label>
+              <select id="membershipLevel" name="membership_level" required>
+                <option value="">Select level</option>
+                <option value="bronze">Bronze</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+                <option value="platinum">Platinum</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="loyaltyPoints">Loyalty Points</label>
+              <input type="number" id="loyaltyPoints" name="loyalty_points" min="0" required>
+            </div>
+            <div class="form-group">
+              <label for="rewardStatus">Reward Status</label>
+              <select id="rewardStatus" name="reward_status" required>
+                <option value="">Select reward status</option>
+                <option value="available">Available</option>
+                <option value="redeemed">Redeemed</option>
+                <option value="expired">Expired</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Update Loyalty</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Loyalty Members</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Points</th>
+                <th>Reward Status</th>
+              </tr>
+            </thead>
+            <tbody id="loyaltyTable">
+              <tr>
+                <td colspan="5">No loyalty records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

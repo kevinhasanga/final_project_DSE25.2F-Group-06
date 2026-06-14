@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Purchase History</title>
+  <link rel="stylesheet" href="css/cro_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Customer Relationship Officer</h1>
+    <p>View customer purchase records</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>CRO Menu</h2>
+      <a href="customer_relationship_officer_dashboard.html">Dashboard</a>
+      <a href="add_customer.html">Add Customer</a>
+      <a href="update_search_customer.html">Update/Search Customer</a>
+      <a class="active" href="customer_purchase_history.html">Purchase History</a>
+      <a href="complaint_management.html">Complaint Management</a>
+      <a href="loyalty_program_management.html">Loyalty Programs</a>
+      <a href="promotional_notification.html">Promotional Notifications</a>
+      <a href="customer_activity_reports.html">Activity Reports</a>
+    </nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Customer Purchase History</h2>
+        <p>Search a customer and view previous purchases.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Find Purchases</h3>
+        <form id="purchaseHistorySearchForm" action="purchase_history.php" method="get" class="search-row">
+          <input type="text" id="purchaseCustomerId" name="customer_id" placeholder="Enter customer ID or phone number" required>
+          <button class="btn" type="submit">View History</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Purchase Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Purchase ID</th>
+                <th>Date</th>
+                <th>Item/Service</th>
+                <th>Quantity</th>
+                <th>Total Amount</th>
+                <th>Payment Status</th>
+              </tr>
+            </thead>
+            <tbody id="purchaseHistoryTable">
+              <tr>
+                <td colspan="6">No purchase history loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

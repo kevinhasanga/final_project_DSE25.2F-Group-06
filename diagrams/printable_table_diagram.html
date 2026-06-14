@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NCC Business Management System - Printable Table Diagram</title>
+  <style>
+    @page {
+      size: A3 landscape;
+      margin: 10mm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: #172033;
+      background: #f5f7fb;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      line-height: 1.25;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      background: #172033;
+      color: white;
+      box-shadow: 0 2px 12px rgba(23, 32, 51, 0.22);
+    }
+
+    .toolbar h1 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .toolbar button {
+      border: 0;
+      border-radius: 6px;
+      padding: 8px 14px;
+      background: #f8c14a;
+      color: #172033;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .page {
+      width: 400mm;
+      min-height: 277mm;
+      margin: 12px auto;
+      padding: 12mm;
+      background: white;
+      box-shadow: 0 8px 30px rgba(23, 32, 51, 0.16);
+    }
+
+    .title {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 2px solid #172033;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .title h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 5px 12px;
+      align-items: center;
+      font-size: 10px;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 4px;
+      vertical-align: -1px;
+    }
+
+    .core { --accent: #2166ac; --soft: #e8f1fb; }
+    .sales { --accent: #238443; --soft: #eaf6ee; }
+    .inventory { --accent: #8c510a; --soft: #fbf1df; }
+    .delivery { --accent: #7b3294; --soft: #f4eafa; }
+    .finance { --accent: #b2182b; --soft: #fdecef; }
+    .hr { --accent: #4d4d4d; --soft: #f0f0f0; }
+    .system { --accent: #006d77; --soft: #e6f4f5; }
+
+    .diagram {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      align-items: start;
+    }
+
+    .table {
+      break-inside: avoid;
+      border: 1.4px solid var(--accent);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .table h3 {
+      margin: 0;
+      padding: 6px 8px;
+      color: #fff;
+      background: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .table ul {
+      list-style: none;
+      margin: 0;
+      padding: 5px 7px 7px;
+      background: var(--soft);
+    }
+
+    .table li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 2px 0;
+      border-bottom: 1px solid rgba(23, 32, 51, 0.1);
+      white-space: nowrap;
+    }
+
+    .table li:last-child {
+      border-bottom: 0;
+    }
+
+    .field {
+      font-weight: 700;
+    }
+
+    .type {
+      color: #455166;
+      text-align: right;
+    }
+
+    .key {
+      display: inline-block;
+      min-width: 20px;
+      margin-left: 3px;
+      padding: 1px 3px;
+      border-radius: 3px;
+      background: #fff;
+      color: #172033;
+      border: 1px solid rgba(23, 32, 51, 0.2);
+      font-size: 8px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .relations {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 12px;
+      break-inside: avoid;
+    }
+
+    .panel {
+      border: 1px solid #b8c0cc;
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #fbfcff;
+    }
+
+    .panel h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+    }
+
+    .relation-grid {
+      columns: 2;
+      column-gap: 18px;
+    }
+
+    .relation {
+      break-inside: avoid;
+      margin: 0 0 4px;
+    }
+
+    .arrow {
+      color: #6b7280;
+      font-weight: 700;
+      padding: 0 4px;
+    }
+
+    .notes {
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    .notes li {
+      margin-bottom: 4px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .toolbar {
+        display: none;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>NCC Business Management System - Printable Table Diagram</h1>
+    <button type="button" onclick="window.print()">Print Diagram</button>
+  </div>
+
+  <main class="page">
+    <section class="title">
+      <h2>NCC Business Management System - Database Table Diagram</h2>
+      <div class="legend" aria-label="Legend">
+        <span><i class="swatch" style="background:#2166ac"></i>Core</span>
+        <span><i class="swatch" style="background:#238443"></i>Sales/CRM</span>
+        <span><i class="swatch" style="background:#8c510a"></i>Inventory</span>
+        <span><i class="swatch" style="background:#7b3294"></i>Delivery</span>
+        <span><i class="swatch" style="background:#b2182b"></i>Finance</span>
+        <span><i class="swatch" style="background:#4d4d4d"></i>HR</span>
+        <span><i class="swatch" style="background:#006d77"></i>System</span>
+      </div>
+    </section>
+
+    <section class="diagram" aria-label="Database tables">
+      <article class="table core">
+        <h3>user</h3>
+        <ul>
+          <li><span class="field">user_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">username <b class="key">UK</b></span><span class="type">VARCHAR</span></li>
+          <li><span class="field">password_hash</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">email <b class="key">UK</b></span><span class="type">VARCHAR</span></li>
+          <li><span class="field">role</span><span class="type">ENUM</span></li>
+          <li><span class="field">is_active</span><span class="type">BOOLEAN</span></li>
+          <li><span class="field">created_at</span><span class="type">TIMESTAMP</span></li>
+        </ul>
+      </article>
+
+      <article class="table core">
+        <h3>employee</h3>
+        <ul>
+          <li><span class="field">employee_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">user_id <b class="key">FK</b> <b class="key">UK</b></span><span class="type">INT</span></li>
+          <li><span class="field">name</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">department</span><span class="type">ENUM</span></li>
+          <li><span class="field">position</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">salary_base</span><span class="type">DECIMAL</span></li>
+        </ul>
+      </article>
+
+      <article class="table sales">
+        <h3>customer</h3>
+        <ul>
+          <li><span class="field">customer_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">name</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">contact_no</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">address</span><span class="type">TEXT</span></li>
+          <li><span class="field">email</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">loyalty_points</span><span class="type">INT</span></li>
+          <li><span class="field">registered_date</span><span class="type">DATE</span></li>
+        </ul>
+      </article>
+
+      <article class="table inventory">
+        <h3>product</h3>
+        <ul>
+          <li><span class="field">product_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">name</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">category</span><span class="type">ENUM</span></li>
+          <li><span class="field">price</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">min_stock_level</span><span class="type">INT</span></li>
+          <li><span class="field">unit</span><span class="type">VARCHAR</span></li>
+        </ul>
+      </article>
+
+      <article class="table delivery">
+        <h3>vehicle</h3>
+        <ul>
+          <li><span class="field">vehicle_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">plate_number <b class="key">UK</b></span><span class="type">VARCHAR</span></li>
+          <li><span class="field">type</span><span class="type">ENUM</span></li>
+          <li><span class="field">capacity</span><span class="type">DECIMAL</span></li>
+        </ul>
+      </article>
+
+      <article class="table finance">
+        <h3>supplier</h3>
+        <ul>
+          <li><span class="field">supplier_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">name</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">contact</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">payment_terms</span><span class="type">VARCHAR</span></li>
+        </ul>
+      </article>
+
+      <article class="table sales">
+        <h3>sales_order</h3>
+        <ul>
+          <li><span class="field">order_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">customer_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">officer_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">order_date</span><span class="type">TIMESTAMP</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+          <li><span class="field">discount</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">tax</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">total_amount</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">is_credit</span><span class="type">BOOLEAN</span></li>
+        </ul>
+      </article>
+
+      <article class="table sales">
+        <h3>order_item</h3>
+        <ul>
+          <li><span class="field">order_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">item_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">product_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">quantity</span><span class="type">INT</span></li>
+          <li><span class="field">unit_price</span><span class="type">DECIMAL</span></li>
+        </ul>
+      </article>
+
+      <article class="table sales">
+        <h3>complaint</h3>
+        <ul>
+          <li><span class="field">customer_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">complaint_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">officer_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">description</span><span class="type">TEXT</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+          <li><span class="field">resolved_date</span><span class="type">DATE</span></li>
+        </ul>
+      </article>
+
+      <article class="table inventory">
+        <h3>stock_batch</h3>
+        <ul>
+          <li><span class="field">product_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">batch_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">quantity</span><span class="type">INT</span></li>
+          <li><span class="field">received_date</span><span class="type">DATE</span></li>
+          <li><span class="field">expiry_date</span><span class="type">DATE</span></li>
+          <li><span class="field">location</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+        </ul>
+      </article>
+
+      <article class="table delivery">
+        <h3>delivery</h3>
+        <ul>
+          <li><span class="field">order_id <b class="key">PK</b> <b class="key">FK</b> <b class="key">UK</b></span><span class="type">INT</span></li>
+          <li><span class="field">delivery_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">driver_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">vehicle_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">manager_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">scheduled_date</span><span class="type">DATE</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+          <li><span class="field">route</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">transport_cost</span><span class="type">DECIMAL</span></li>
+        </ul>
+      </article>
+
+      <article class="table delivery">
+        <h3>delivery_proof</h3>
+        <ul>
+          <li><span class="field">order_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">delivery_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">proof_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">image_url</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">timestamp</span><span class="type">TIMESTAMP</span></li>
+          <li><span class="field">fuel_used</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">notes</span><span class="type">TEXT</span></li>
+        </ul>
+      </article>
+
+      <article class="table finance">
+        <h3>financial_record</h3>
+        <ul>
+          <li><span class="field">record_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">recorded_by <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">supplier_id <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">type</span><span class="type">ENUM</span></li>
+          <li><span class="field">amount</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">description</span><span class="type">TEXT</span></li>
+          <li><span class="field">date</span><span class="type">DATE</span></li>
+        </ul>
+      </article>
+
+      <article class="table finance">
+        <h3>budget</h3>
+        <ul>
+          <li><span class="field">budget_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">approved_by <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">department</span><span class="type">ENUM</span></li>
+          <li><span class="field">amount</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">period</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+        </ul>
+      </article>
+
+      <article class="table hr">
+        <h3>attendance</h3>
+        <ul>
+          <li><span class="field">employee_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">attendance_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">approved_by <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">date</span><span class="type">DATE</span></li>
+          <li><span class="field">clock_in</span><span class="type">TIME</span></li>
+          <li><span class="field">clock_out</span><span class="type">TIME</span></li>
+          <li><span class="field">is_overtime</span><span class="type">BOOLEAN</span></li>
+        </ul>
+      </article>
+
+      <article class="table hr">
+        <h3>leave_request</h3>
+        <ul>
+          <li><span class="field">employee_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">leave_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">approved_by <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">start_date</span><span class="type">DATE</span></li>
+          <li><span class="field">end_date</span><span class="type">DATE</span></li>
+          <li><span class="field">reason</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">status</span><span class="type">ENUM</span></li>
+        </ul>
+      </article>
+
+      <article class="table hr">
+        <h3>payroll</h3>
+        <ul>
+          <li><span class="field">employee_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">payroll_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">generated_by <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">period</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">base_salary</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">overtime_pay</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">deductions</span><span class="type">DECIMAL</span></li>
+          <li><span class="field">net_pay</span><span class="type">DECIMAL</span></li>
+        </ul>
+      </article>
+
+      <article class="table system">
+        <h3>audit_log</h3>
+        <ul>
+          <li><span class="field">user_id <b class="key">PK</b> <b class="key">FK</b></span><span class="type">INT</span></li>
+          <li><span class="field">log_id <b class="key">PK</b></span><span class="type">INT</span></li>
+          <li><span class="field">action</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">target_table</span><span class="type">VARCHAR</span></li>
+          <li><span class="field">timestamp</span><span class="type">TIMESTAMP</span></li>
+          <li><span class="field">ip_address</span><span class="type">VARCHAR</span></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="relations">
+      <div class="panel">
+        <h3>Relationship Summary</h3>
+        <div class="relation-grid">
+          <p class="relation">user <span class="arrow">1 -> 0..1</span> employee</p>
+          <p class="relation">user <span class="arrow">1 -> many</span> audit_log</p>
+          <p class="relation">customer <span class="arrow">1 -> many</span> sales_order</p>
+          <p class="relation">customer <span class="arrow">1 -> many</span> complaint</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> sales_order</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> complaint</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> financial_record</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> budget</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> delivery as driver</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> delivery as manager</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> attendance</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> leave_request</p>
+          <p class="relation">employee <span class="arrow">1 -> many</span> payroll</p>
+          <p class="relation">supplier <span class="arrow">0..1 -> many</span> financial_record</p>
+          <p class="relation">product <span class="arrow">1 -> many</span> stock_batch</p>
+          <p class="relation">product <span class="arrow">1 -> many</span> order_item</p>
+          <p class="relation">sales_order <span class="arrow">1 -> many</span> order_item</p>
+          <p class="relation">sales_order <span class="arrow">1 -> 0..1</span> delivery</p>
+          <p class="relation">vehicle <span class="arrow">1 -> many</span> delivery</p>
+          <p class="relation">delivery <span class="arrow">1 -> 0..1</span> delivery_proof</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Key Notes</h3>
+        <ul class="notes">
+          <li><strong>PK</strong> = primary key, <strong>FK</strong> = foreign key, <strong>UK</strong> = unique key.</li>
+          <li>Several weak tables use composite primary keys, including order items, stock batches, attendance, leave requests, payroll, and audit logs.</li>
+          <li>Each sales order can have at most one delivery because <strong>delivery.order_id</strong> is unique.</li>
+          <li>Each delivery can have at most one proof record because <strong>delivery_proof(order_id, delivery_id)</strong> is unique.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
