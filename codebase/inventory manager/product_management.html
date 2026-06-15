@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Management</title>
+  <link rel="stylesheet" href="css/inventory_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>Inventory Manager</h1><p>Add, categorize, update, and delete products</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Inventory</h2>
+      <a href="inventory_manager_dashboard.html">Dashboard</a>
+      <a class="active" href="product_management.html">Products</a>
+      <a href="product_pricing.html">Pricing & Levels</a>
+      <a href="incoming_stock.html">Incoming Stock</a>
+      <a href="expiry_damage_tracking.html">Expiry & Damage</a>
+      <a href="stock_returns_transfers.html">Returns & Transfers</a>
+      <a href="stock_reports.html">Stock Reports</a>
+      <a href="low_stock_alerts.html">Low Stock Alerts</a>
+      <a href="inventory_turnover.html">Inventory Turnover</a>
+    </nav>
+    <main class="content">
+      <section class="page-title"><h2>Product Management</h2><p>Create and maintain product records.</p></section>
+      <section class="panel">
+        <h3>Add / Edit Product</h3>
+        <form id="productForm" action="save_product.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="productId">Product ID</label><input type="text" id="productId" name="product_id" placeholder="Leave empty for new product"></div>
+            <div class="form-group"><label for="productName">Product Name</label><input type="text" id="productName" name="product_name" required></div>
+            <div class="form-group"><label for="category">Category</label><input type="text" id="category" name="category" required></div>
+            <div class="form-group"><label for="unit">Unit</label><input type="text" id="unit" name="unit" placeholder="kg, box, bottle" required></div>
+            <div class="form-group"><label for="productStatus">Status</label><select id="productStatus" name="product_status" required><option value="">Select status</option><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+            <div class="form-group full-width"><label for="description">Description</label><textarea id="description" name="description"></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Product</button><button class="btn danger" type="submit" formaction="delete_product.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Product Records</h3><div class="table-wrapper"><table><thead><tr><th>Product ID</th><th>Name</th><th>Category</th><th>Unit</th><th>Status</th><th>Action</th></tr></thead><tbody id="productsTable"><tr><td colspan="6">No product records loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

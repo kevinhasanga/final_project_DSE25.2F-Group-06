@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Returns and Transfers</title>
+  <link rel="stylesheet" href="css/inventory_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>Inventory Manager</h1><p>Record stock returns and transfer between locations</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Inventory</h2>
+      <a href="inventory_manager_dashboard.html">Dashboard</a><a href="product_management.html">Products</a><a href="product_pricing.html">Pricing & Levels</a><a href="incoming_stock.html">Incoming Stock</a><a href="expiry_damage_tracking.html">Expiry & Damage</a><a class="active" href="stock_returns_transfers.html">Returns & Transfers</a><a href="stock_reports.html">Stock Reports</a><a href="low_stock_alerts.html">Low Stock Alerts</a><a href="inventory_turnover.html">Inventory Turnover</a>
+    </nav>
+    <main class="content">
+      <section class="page-title"><h2>Stock Returns and Transfers</h2><p>Record returned stock and transfer stock between locations.</p></section>
+      <section class="panel">
+        <h3>Add / Edit Return or Transfer</h3>
+        <form id="stockReturnTransferForm" action="save_stock_return_transfer.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="movementId">Movement ID</label><input type="text" id="movementId" name="movement_id" placeholder="Leave empty for new record"></div>
+            <div class="form-group"><label for="productId">Product ID</label><input type="text" id="productId" name="product_id" required></div>
+            <div class="form-group"><label for="movementType">Movement Type</label><select id="movementType" name="movement_type" required><option value="">Select type</option><option value="return">Return</option><option value="transfer">Transfer</option></select></div>
+            <div class="form-group"><label for="quantity">Quantity</label><input type="number" id="quantity" name="quantity" min="1" required></div>
+            <div class="form-group"><label for="fromLocation">From Location</label><input type="text" id="fromLocation" name="from_location"></div>
+            <div class="form-group"><label for="toLocation">To Location</label><input type="text" id="toLocation" name="to_location"></div>
+            <div class="form-group"><label for="movementDate">Movement Date</label><input type="date" id="movementDate" name="movement_date" required></div>
+            <div class="form-group full-width"><label for="reason">Reason</label><textarea id="reason" name="reason"></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Movement</button><button class="btn danger" type="submit" formaction="delete_stock_return_transfer.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Return and Transfer Records</h3><div class="table-wrapper"><table><thead><tr><th>Movement ID</th><th>Product ID</th><th>Type</th><th>Quantity</th><th>From</th><th>To</th><th>Date</th></tr></thead><tbody id="stockReturnTransferTable"><tr><td colspan="7">No return or transfer records loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>
