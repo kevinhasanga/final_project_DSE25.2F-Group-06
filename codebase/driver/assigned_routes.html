@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assigned Routes</title>
+  <link rel="stylesheet" href="css/driver_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Driver</h1>
+    <p>View assigned delivery routes and details</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Driver</h2>
+      <a href="driver_dashboard.html">Dashboard</a>
+      <a class="active" href="assigned_routes.html">Assigned Routes</a>
+      <a href="delivery_status.html">Delivery Status</a>
+      <a href="delivery_issues.html">Delivery Issues</a>
+      <a href="proof_of_delivery.html">Proof of Delivery</a>
+      <a href="fuel_usage.html">Fuel Usage</a>
+    </nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Assigned Routes</h2>
+        <p>Search and view delivery route details assigned to the driver.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Search Route</h3>
+        <form id="assignedRouteSearchForm" action="assigned_routes.php" method="get" class="search-row">
+          <input type="text" id="routeKeyword" name="keyword" placeholder="Search by order ID or route name" required>
+          <button class="btn" type="submit">Search</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Route ID</th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Address</th>
+                <th>Delivery Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="assignedRoutesTable">
+              <tr>
+                <td colspan="6">No assigned routes loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
