@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 20px;
+  color: #24352a;
+  background: #f2f5f2;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  padding: 32px;
+  border: 1px solid #ccd8ce;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(36, 53, 42, 0.08);
+}
+
+.company-logo {
+  display: block;
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 14px;
+}
+
+h1 {
+  margin: 0;
+  color: #245b32;
+  font-size: 25px;
+  text-align: center;
+}
+
+.company-short-name {
+  margin: 5px 0 26px;
+  color: #6a786d;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 11px 12px;
+  border: 1px solid #aebcaf;
+  border-radius: 4px;
+  font: inherit;
+}
+
+input:focus {
+  border-color: #2f7341;
+  outline: 2px solid rgba(47, 115, 65, 0.18);
+}
+
+input.invalid {
+  border-color: #b3261e;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 4px;
+  color: #ffffff;
+  background: #057222;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #245b32;
+}
+
+.error-message {
+  margin: 0 0 18px;
+  padding: 10px;
+  border: 1px solid #e3aaa6;
+  border-radius: 4px;
+  color: #8c1d18;
+  background: #fff0ef;
+  font-size: 13px;
+}

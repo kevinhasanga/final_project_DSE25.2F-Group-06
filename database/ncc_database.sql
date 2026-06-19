@@ -4,6 +4,12 @@
 -- Based on ER Diagram Logical Schema
 -- ============================================
 
+CREATE DATABASE IF NOT EXISTS ncc_database
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE ncc_database;
+
 -- Drop tables if they exist (for clean setup)
 DROP TABLE IF EXISTS audit_log;
 DROP TABLE IF EXISTS delivery_proof;
@@ -540,15 +546,16 @@ DELIMITER ;
 -- 6. SAMPLE DATA (Optional - for testing)
 -- ============================================
 
--- Insert admin user
+-- Sample login password for the users below: password
+-- Replace these credentials before using the system outside development.
 INSERT INTO user (username, password_hash, email, role, is_active) VALUES
-('admin', '$2y$10$hashedpassword', 'admin@ncc.lk', 'Admin', TRUE);
+('admin', '$2y$10$kMicTDg9Mwya6O7N9KW.VOvJ1Q7DVXgy86yBUfqutHU8LkGYSggVW', 'admin@ncc.lk', 'Admin', TRUE);
 
 -- Insert sample employees with user accounts
 INSERT INTO user (username, password_hash, email, role) VALUES
-('cro1', '$2y$10$hashed', 'cro@ncc.lk', 'Customer Relationship Officer'),
-('driver1', '$2y$10$hashed', 'driver@ncc.lk', 'Driver'),
-('finance1', '$2y$10$hashed', 'finance@ncc.lk', 'Finance Officer');
+('cro1', '$2y$10$kMicTDg9Mwya6O7N9KW.VOvJ1Q7DVXgy86yBUfqutHU8LkGYSggVW', 'cro@ncc.lk', 'Customer Relationship Officer'),
+('driver1', '$2y$10$kMicTDg9Mwya6O7N9KW.VOvJ1Q7DVXgy86yBUfqutHU8LkGYSggVW', 'driver@ncc.lk', 'Driver'),
+('finance1', '$2y$10$kMicTDg9Mwya6O7N9KW.VOvJ1Q7DVXgy86yBUfqutHU8LkGYSggVW', 'finance@ncc.lk', 'Finance Officer');
 
 INSERT INTO employee (user_id, name, department, position, salary_base) VALUES
 (2, 'John Smith', 'Sales', 'Customer Relationship Officer', 85000.00),

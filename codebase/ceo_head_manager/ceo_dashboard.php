@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('CEO');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +15,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>CEO / Head Manager</h2>
-      <a class="active" href="ceo_dashboard.html">Dashboard</a>
+      <a class="active" href="ceo_dashboard.php">Dashboard</a>
       <a href="login_profile.html">Login & Profile</a>
       <a href="sales_performance.html">Sales Performance</a>
       <a href="inventory_valuation.html">Inventory Valuation</a>
@@ -30,6 +34,7 @@
       <a href="escalated_complaints.html">Complaints</a>
       <a href="internal_announcements.html">Announcements</a>
       <a href="business_expansion.html">Expansion Plans</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
     <main class="content">
       <section class="page-title"><h2>Centralized Business Dashboard</h2><p>Overview of sales, inventory, finance, delivery, and system activities.</p></section>

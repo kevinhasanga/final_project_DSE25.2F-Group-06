@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Finance Officer');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Finance Officer</h2>
-      <a class="active" href="finance_officer_dashboard.html">Dashboard</a>
+      <a class="active" href="finance_officer_dashboard.php">Dashboard</a>
       <a href="daily_income_expenses.html">Income & Expenses</a>
       <a href="supplier_payments.html">Supplier Payments</a>
       <a href="receivables.html">Receivables</a>
@@ -25,6 +29,7 @@
       <a href="budget_utilization.html">Budget Utilization</a>
       <a href="tax_records.html">Tax Records</a>
       <a href="account_reconciliation.html">Reconciliation</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Supervisor');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Supervisor</h2>
-      <a class="active" href="supervisor_dashboard.html">Dashboard</a>
+      <a class="active" href="supervisor_dashboard.php">Dashboard</a>
       <a href="employee_attendance.html">Attendance</a>
       <a href="clock_times.html">Clock Times</a>
       <a href="overtime_records.html">Overtime</a>
@@ -26,6 +30,7 @@
       <a href="salary_slips.html">Salary Slips</a>
       <a href="employee_performance.html">Performance</a>
       <a href="attendance_reports.html">Attendance Reports</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

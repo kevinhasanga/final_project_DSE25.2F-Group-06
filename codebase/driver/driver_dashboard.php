@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Driver');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +19,13 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Driver</h2>
-      <a class="active" href="driver_dashboard.html">Dashboard</a>
+      <a class="active" href="driver_dashboard.php">Dashboard</a>
       <a href="assigned_routes.html">Assigned Routes</a>
       <a href="delivery_status.html">Delivery Status</a>
       <a href="delivery_issues.html">Delivery Issues</a>
       <a href="proof_of_delivery.html">Proof of Delivery</a>
       <a href="fuel_usage.html">Fuel Usage</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

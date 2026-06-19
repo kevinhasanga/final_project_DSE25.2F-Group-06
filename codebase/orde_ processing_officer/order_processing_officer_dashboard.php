@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Order Processing Officer');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Order Officer</h2>
-      <a class="active" href="order_processing_officer_dashboard.html">Dashboard</a>
+      <a class="active" href="order_processing_officer_dashboard.php">Dashboard</a>
       <a href="sales_order_management.html">Sales Orders</a>
       <a href="stock_availability.html">Stock Availability</a>
       <a href="credit_order_approval.html">Credit Approval</a>
@@ -24,6 +28,7 @@
       <a href="order_status_update.html">Order Status</a>
       <a href="order_reports.html">Order Reports</a>
       <a href="daily_sales_totals.html">Daily Sales</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

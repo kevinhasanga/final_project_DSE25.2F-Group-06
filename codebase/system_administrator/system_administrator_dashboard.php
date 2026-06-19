@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Admin');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>System Admin</h2>
-      <a class="active" href="system_administrator_dashboard.html">Dashboard</a>
+      <a class="active" href="system_administrator_dashboard.php">Dashboard</a>
       <a href="create_user_accounts.html">Create Users</a>
       <a href="assign_user_roles.html">Assign Roles</a>
       <a href="access_privileges.html">Access Privileges</a>
@@ -30,6 +34,7 @@
       <a href="restore_system_data.html">Restore Data</a>
       <a href="system_errors.html">System Errors</a>
       <a href="audit_reports.html">Audit Reports</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

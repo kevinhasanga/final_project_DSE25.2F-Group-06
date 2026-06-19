@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Inventory Manager');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Inventory</h2>
-      <a class="active" href="inventory_manager_dashboard.html">Dashboard</a>
+      <a class="active" href="inventory_manager_dashboard.php">Dashboard</a>
       <a href="product_management.html">Products</a>
       <a href="product_pricing.html">Pricing & Levels</a>
       <a href="incoming_stock.html">Incoming Stock</a>
@@ -24,6 +28,7 @@
       <a href="stock_reports.html">Stock Reports</a>
       <a href="low_stock_alerts.html">Low Stock Alerts</a>
       <a href="inventory_turnover.html">Inventory Turnover</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">

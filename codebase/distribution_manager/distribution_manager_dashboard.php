@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../login/auth.php';
+require_login('Distribution Manager');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
   <div class="layout">
     <nav class="sidebar">
       <h2>Distribution</h2>
-      <a class="active" href="distribution_manager_dashboard.html">Dashboard</a>
+      <a class="active" href="distribution_manager_dashboard.php">Dashboard</a>
       <a href="confirmed_orders.html">Confirmed Orders</a>
       <a href="delivery_schedule.html">Delivery Schedules</a>
       <a href="driver_vehicle_assignment.html">Driver & Vehicle</a>
@@ -25,6 +29,7 @@
       <a href="transportation_costs.html">Transport Costs</a>
       <a href="delivery_reports.html">Reports</a>
       <a href="delayed_deliveries.html">Delayed Deliveries</a>
+      <a href="../login/logout.php">Log out</a>
     </nav>
 
     <main class="content">
