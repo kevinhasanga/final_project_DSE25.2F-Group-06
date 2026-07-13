@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Sales Totals</title>
+  <link rel="stylesheet" href="css/opo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Order Processing</h1>
+    <p>Track daily sales totals</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Order Officer</h2>
+      <a href="order_processing_officer_dashboard.php">Dashboard</a>
+      <a href="sales_order_management.html">Sales Orders</a>
+      <a href="stock_availability.html">Stock Availability</a>
+      <a href="credit_order_approval.html">Credit Approval</a>
+      <a href="invoice_generation.html">Invoices</a>
+      <a href="discount_tax_calculation.html">Discounts & Taxes</a>
+      <a href="order_status_update.html">Order Status</a>
+      <a href="order_reports.html">Order Reports</a>
+      <a class="active" href="daily_sales_totals.html">Daily Sales</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Daily Sales Totals</h2>
+        <p>View sales totals for a selected date.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Select Date</h3>
+        <form id="dailySalesForm" action="daily_sales_totals.php" method="get" class="search-row">
+          <input type="date" id="salesDate" name="sales_date" required>
+          <button class="btn" type="submit">View Sales</button>
+        </form>
+      </section>
+
+      <section class="cards">
+        <div class="card">
+          <h3>Total Orders</h3>
+          <p class="number" id="totalOrders">0</p>
+          <p>Orders for selected date</p>
+        </div>
+        <div class="card">
+          <h3>Total Sales</h3>
+          <p class="number" id="totalSales">0</p>
+          <p>Sales amount</p>
+        </div>
+        <div class="card">
+          <h3>Cash Sales</h3>
+          <p class="number" id="cashSales">0</p>
+          <p>Cash payments</p>
+        </div>
+        <div class="card">
+          <h3>Credit Sales</h3>
+          <p class="number" id="creditSales">0</p>
+          <p>Credit payments</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3>Sales Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Payment Method</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody id="dailySalesTable">
+              <tr>
+                <td colspan="5">No daily sales records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

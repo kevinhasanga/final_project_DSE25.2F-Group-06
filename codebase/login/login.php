@@ -23,9 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Please enter your username and password.";
     } else {
         // A prepared statement safely checks the entered username.
-        $sql = "SELECT user_id, username, password_hash, role, is_active
-                FROM `user`
-                WHERE username = ?";
+        $sql = "SELECT ua.user_id, ua.username, ua.password_hash,
+                       ua.role_name AS role, ua.is_active, e.full_name
+                FROM user_account ua
+                LEFT JOIN employee e ON e.user_id = ua.user_id
+                WHERE ua.username = ?";
 
         $statement = mysqli_prepare($connection, $sql);
         mysqli_stmt_bind_param($statement, "s", $username);
@@ -40,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ) {
             $_SESSION["user_id"] = $user["user_id"];
             $_SESSION["username"] = $user["username"];
+            $_SESSION["full_name"] = $user["full_name"] ?: $user["username"];
             $_SESSION["role"] = $user["role"];
 
             $dashboard = getDashboard($user["role"]);

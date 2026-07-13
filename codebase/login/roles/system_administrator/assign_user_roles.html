@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign User Roles</title>
+  <link rel="stylesheet" href="css/sa_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>System Administrator</h1>
+    <p>Assign user roles</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>System Admin</h2>
+      <a href="system_administrator_dashboard.php">Dashboard</a>
+      <a href="create_user_accounts.html">Create Users</a>
+      <a class="active" href="assign_user_roles.html">Assign Roles</a>
+      <a href="access_privileges.html">Access Privileges</a>
+      <a href="update_user_information.html">Update Users</a>
+      <a href="reset_passwords.html">Reset Passwords</a>
+      <a href="account_status.html">Account Status</a>
+      <a href="user_activity_logs.html">Activity Logs</a>
+      <a href="login_history.html">Login History</a>
+      <a href="system_settings.html">System Settings</a>
+      <a href="notification_settings.html">Notifications</a>
+      <a href="database_backups.html">Backups</a>
+      <a href="restore_system_data.html">Restore Data</a>
+      <a href="system_errors.html">System Errors</a>
+      <a href="audit_reports.html">Audit Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Assign User Roles</h2>
+        <p>Change or assign roles for existing users.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Role Assignment</h3>
+        <form id="assignRoleForm" action="save_user_role.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="userId">User ID</label>
+              <input type="text" id="userId" name="user_id" required>
+            </div>
+            <div class="form-group">
+              <label for="newRole">New Role</label>
+              <select id="newRole" name="new_role" required>
+                <option value="">Select role</option>
+                <option value="admin">System Administrator</option>
+                <option value="finance_officer">Finance Officer</option>
+                <option value="order_officer">Order Processing Officer</option>
+                <option value="distribution_manager">Distribution Manager</option>
+                <option value="driver">Driver</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Assign Role</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>User Roles</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Current Role</th>
+                <th>Updated Date</th>
+              </tr>
+            </thead>
+            <tbody id="userRolesTable">
+              <tr>
+                <td colspan="4">No user role records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

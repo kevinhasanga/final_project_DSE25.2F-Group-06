@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Settings</title>
+  <link rel="stylesheet" href="css/sa_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>System Administrator</h1><p>Configure system settings</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>System Admin</h2>
+      <a href="system_administrator_dashboard.php">Dashboard</a><a href="create_user_accounts.html">Create Users</a><a href="assign_user_roles.html">Assign Roles</a><a href="access_privileges.html">Access Privileges</a><a href="update_user_information.html">Update Users</a><a href="reset_passwords.html">Reset Passwords</a><a href="account_status.html">Account Status</a><a href="user_activity_logs.html">Activity Logs</a><a href="login_history.html">Login History</a><a class="active" href="system_settings.html">System Settings</a><a href="notification_settings.html">Notifications</a><a href="database_backups.html">Backups</a><a href="restore_system_data.html">Restore Data</a><a href="system_errors.html">System Errors</a><a href="audit_reports.html">Audit Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>System Settings</h2><p>Update basic application configuration values.</p></section>
+      <section class="panel">
+        <h3>Add / Edit Setting</h3>
+        <form id="systemSettingsForm" action="save_system_setting.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="settingId">Setting ID</label><input type="text" id="settingId" name="setting_id" placeholder="Leave empty for new setting"></div>
+            <div class="form-group"><label for="settingName">Setting Name</label><input type="text" id="settingName" name="setting_name" required></div>
+            <div class="form-group"><label for="settingValue">Setting Value</label><input type="text" id="settingValue" name="setting_value" required></div>
+            <div class="form-group"><label for="settingStatus">Status</label><select id="settingStatus" name="setting_status" required><option value="">Select status</option><option value="active">Active</option><option value="inactive">Inactive</option></select></div>
+            <div class="form-group full-width"><label for="description">Description</label><textarea id="description" name="description"></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Setting</button><button class="btn danger" type="submit" formaction="delete_system_setting.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>System Settings</h3><div class="table-wrapper"><table><thead><tr><th>Setting ID</th><th>Name</th><th>Value</th><th>Status</th><th>Updated Date</th></tr></thead><tbody id="systemSettingsTable"><tr><td colspan="5">No system settings loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

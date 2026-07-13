@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Errors</title>
+  <link rel="stylesheet" href="css/sa_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>System Administrator</h1><p>Monitor system errors</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>System Admin</h2>
+      <a href="system_administrator_dashboard.php">Dashboard</a><a href="create_user_accounts.html">Create Users</a><a href="assign_user_roles.html">Assign Roles</a><a href="access_privileges.html">Access Privileges</a><a href="update_user_information.html">Update Users</a><a href="reset_passwords.html">Reset Passwords</a><a href="account_status.html">Account Status</a><a href="user_activity_logs.html">Activity Logs</a><a href="login_history.html">Login History</a><a href="system_settings.html">System Settings</a><a href="notification_settings.html">Notifications</a><a href="database_backups.html">Backups</a><a href="restore_system_data.html">Restore Data</a><a class="active" href="system_errors.html">System Errors</a><a href="audit_reports.html">Audit Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>System Errors</h2><p>Record and monitor system error details.</p></section>
+      <section class="panel">
+        <h3>Add / Edit Error Record</h3>
+        <form id="systemErrorForm" action="save_system_error.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="errorId">Error ID</label><input type="text" id="errorId" name="error_id" placeholder="Leave empty for new error"></div>
+            <div class="form-group"><label for="errorDate">Error Date</label><input type="datetime-local" id="errorDate" name="error_date" required></div>
+            <div class="form-group"><label for="errorType">Error Type</label><input type="text" id="errorType" name="error_type" required></div>
+            <div class="form-group"><label for="errorStatus">Status</label><select id="errorStatus" name="error_status" required><option value="">Select status</option><option value="open">Open</option><option value="checking">Checking</option><option value="resolved">Resolved</option></select></div>
+            <div class="form-group full-width"><label for="errorMessage">Error Message</label><textarea id="errorMessage" name="error_message" required></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Error</button><button class="btn danger" type="submit" formaction="delete_system_error.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Error Records</h3><div class="table-wrapper"><table><thead><tr><th>Error ID</th><th>Date</th><th>Type</th><th>Message</th><th>Status</th></tr></thead><tbody id="systemErrorsTable"><tr><td colspan="5">No system errors loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

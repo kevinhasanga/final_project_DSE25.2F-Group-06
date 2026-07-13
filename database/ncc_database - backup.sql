@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ncc_database;
-USE ncc_database;
+CREATE DATABASE IF NOT EXISTS business_management;
+USE business_management;
 
 CREATE TABLE user_account (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -318,20 +318,6 @@ CREATE TABLE announcement (
     FOREIGN KEY (receiver_id) REFERENCES employee(employee_id)
 );
 
-CREATE TABLE internal_email (
-    email_id INT AUTO_INCREMENT PRIMARY KEY,
-    sender_id INT NOT NULL,
-    recipient_id INT NOT NULL,
-    subject VARCHAR(150) NOT NULL,
-    message TEXT NOT NULL,
-    sent_at DATETIME NOT NULL,
-    read_at DATETIME,
-    FOREIGN KEY (sender_id) REFERENCES user_account(user_id),
-    FOREIGN KEY (recipient_id) REFERENCES user_account(user_id),
-    INDEX idx_internal_email_recipient (recipient_id, sent_at),
-    INDEX idx_internal_email_sender (sender_id, sent_at)
-);
-
 CREATE TABLE backup_record (
     backup_id INT AUTO_INCREMENT PRIMARY KEY,
     backup_type VARCHAR(30) NOT NULL,
@@ -339,64 +325,3 @@ CREATE TABLE backup_record (
     date DATETIME,
     note TEXT
 );
-
--- Mock login accounts. Passwords are bcrypt hashes generated with PHP's
--- password_hash() and are verified by login.php with password_verify().
-INSERT INTO user_account
-    (role_name, username, password_hash, email, is_active, created_at)
-VALUES
-    ('driver', 'Nimal', '$2y$10$/fEPNP9iR/aDt5XS8cVe2.gyWEEY88zlTId4i0bGZn0cSyXVNd2mm', 'nimal@ncc.lk', 1, '2025-03-12 09:00:00'),
-    ('driver', 'Kasun', '$2y$10$cY4n1zHJ8ccPngf9fQ4DC.sfKQCxBbxvBLsbkppnAQ25ZHU1PAVGG', 'Kasun@ncc.lk', 1, '2025-02-15 09:00:00'),
-    ('driver', 'Sachin', '$2y$10$55Qx2iKg46Rj/uLNGr1GB.SWYjvo6m3ID2KoCYQN1qQREw6T50dvi', 'Sachin@ncc.lk', 1, '2025-03-25 09:00:00'),
-    ('order_processing_officer', 'Sachini', '$2y$10$GLP.jtzUmPCNyYP2zRufB.nAyZdvwRZfIlJCu7sSIeiCXmhjcBYUO', 'Sachini@ncc.lk', 1, '2025-03-25 09:00:00'),
-    ('order_processing_officer', 'Kavindi', '$2y$10$Na9rs7sn5/1Zqv085fpGn.JFhl5V7F8XUn9CpX1HxvRpD2DbnAeTK', 'Kavindi@ncc.lk', 1, '2025-03-28 09:00:00'),
-    ('customer_relation_manager', 'Dinithi', '$2y$10$5CRcv3vEJpiavuoci0pmReDpns1enbdgb.GDUsA6WsZ.mK65sCNNG', 'Dinithi@ncc.lk', 1, '2025-03-20 09:00:00'),
-    ('customer_relation_manager', 'Hiruni', '$2y$10$HEQDqMGLYfH12dCRXodYCuc5eHFB3EmrW6EmaSDO5n5WvKMjzffhm', 'Hiruni@ncc.lk', 1, '2025-03-19 09:00:00'),
-    ('supervisor', 'Imran', '$2y$10$E5rtDnDczLDTKOgNTYBvwuqOJdhl4IFICcj8uNLn9fVA4O3Qv61za', 'Imran@ncc.lk', 1, '2025-03-09 09:00:00'),
-    ('financial_officer', 'Tharushi', '$2y$10$7oQr4uM8kZAaT6afNyyJXuGtsLZtAbby0irmBbzP5dHoPKaEPei/K', 'Tharushi@ncc.lk', 1, '2025-02-18 09:00:00'),
-    ('inventory_manager', 'Ravindu', '$2y$10$rdYnhIebLGr8XgjT5IYjeuWu6RZ8zPH2HgRS/3sqNXeAD6.VrszqG', 'Ravindu@ncc.lk', 1, '2025-04-02 09:00:00'),
-    ('distribution_manager', 'Dinuka', '$2y$10$ZBLvXhlZOnU1MushvD7wR.ggOcX4MOTJ46Ojmwhnt/6UiS78Ltmv6', 'Dinuka@ncc.lk', 1, '2025-04-03 09:00:00'),
-    ('system_admin', 'sysadmin', '$2y$10$3GuIIHb3V2Oak2eUWI8r/Oox9f547MP6Ubv278pxjcp4dX5w6CcSe', 'admin@ncc.lk', 1, '2025-04-03 09:00:00'),
-    ('ceo_head_manager', 'Sahan', '$2y$10$S/BAMXpbeuQ0yMFGQAtFcO11oI0HBOGxxu//BASXF0Br.WmH93L3K', 'Sahan@ncc.lk', 1, '2025-04-01 09:00:00')
-ON DUPLICATE KEY UPDATE
-    role_name = VALUES(role_name),
-    password_hash = VALUES(password_hash),
-    email = VALUES(email),
-    is_active = VALUES(is_active),
-    created_at = VALUES(created_at);
-
--- All staff records. Staff without application credentials have a NULL user_id.
-INSERT INTO employee
-    (user_id, full_name, nic, contact_no, address, job_title, hire_date, base_salary, employment_status)
-VALUES
-    ((SELECT user_id FROM user_account WHERE username = 'Nimal'), 'Nimal Perera', '6842719350', '0712-345678', NULL, 'driver', '2025-03-12', 75000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Kasun'), 'Kasun Fernando', '3975061824', '0723-456789', NULL, 'driver', '2025-02-15', 75000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Sachin'), 'Sachin Jayasinghe', '8251946370', '0726-147258', NULL, 'driver', '2025-03-25', 75000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Sachini'), 'Sachini Perera', '4719283056', '0745-678901', NULL, 'order_processing_officer', '2025-03-25', 80000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Kavindi'), 'Kavindi Silva', '9362057184', '0756-789012', NULL, 'order_processing_officer', '2025-03-28', 80000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Dinithi'), 'Dinithi Jayasinghe', '7138964205', '0715-024689', NULL, 'customer_relation_manager', '2025-03-20', 82000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Hiruni'), 'Hiruni Gunawardena', '2587416093', '0703-913578', NULL, 'customer_relation_manager', '2025-03-19', 82000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Imran'), 'Imran Zakhaev', '8624071953', '0767-890123', NULL, 'supervisor', '2025-03-09', 85000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Tharushi'), 'Tharushi Bandara', '5492738160', '0778-901234', NULL, 'financial_officer', '2025-02-18', 85000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Ravindu'), 'Ravindu Madushanka', '3159682740', '0789-012345', NULL, 'inventory_manager', '2025-04-02', 80000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Dinuka'), 'Dinuka Herath', '7941526308', '0701-123456', NULL, 'distribution_manager', '2025-04-03', 80000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'sysadmin'), 'Supun Karunaratne', '6283094715', '0724-345678', NULL, 'system_admin', '2025-04-03', 100000.00, 'active'),
-    ((SELECT user_id FROM user_account WHERE username = 'Sahan'), 'Sahan Abeysekara', '4578162930', '0779-890123', NULL, 'ceo_head_manager', '2025-04-01', 250000.00, 'active'),
-    (NULL, 'Kishan Tharmalingam', '2364958071', '0781-901234', NULL, 'cleaning', '2025-05-03', 50000.00, 'active'),
-    (NULL, 'Yashoda Senanayake', '9813745206', '0713-234567', NULL, 'cleaning', '2025-05-02', 50000.00, 'active'),
-    (NULL, 'Pasindu Ekanayake', '8753206941', '0747-468023', NULL, 'security', '2025-05-04', 70000.00, 'active'),
-    -- The supplied NIC duplicated Sahan's; this unique mock NIC keeps the seed valid.
-    (NULL, 'Akila Samarasinghe', '4578162931', '5190472863', NULL, 'security', '2025-05-04', 70000.00, 'active'),
-    (NULL, 'Malith Rajapaksha', '9564381207', '0702-012345', NULL, 'packing', '2025-04-06', 65000.00, 'active'),
-    (NULL, 'Rizwan Ahamed', '3942178650', '0714-135790', NULL, 'packing', '2025-04-06', 65000.00, 'active'),
-    (NULL, 'Kavindu Dissanayake', '7285063194', '0725-246801', NULL, 'packing', '2025-04-09', 65000.00, 'active'),
-    (NULL, 'Anushiya Rajendran', '6439817520', '0758-579134', NULL, 'packing', '2025-04-29', 65000.00, 'active')
-ON DUPLICATE KEY UPDATE
-    user_id = VALUES(user_id),
-    full_name = VALUES(full_name),
-    contact_no = VALUES(contact_no),
-    address = VALUES(address),
-    job_title = VALUES(job_title),
-    hire_date = VALUES(hire_date),
-    base_salary = VALUES(base_salary),
-    employment_status = VALUES(employment_status);

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier Payments</title>
+  <link rel="stylesheet" href="css/fo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Finance Officer</h1>
+    <p>Manage supplier payments</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Finance Officer</h2>
+      <a href="finance_officer_dashboard.php">Dashboard</a>
+      <a href="daily_income_expenses.html">Income & Expenses</a>
+      <a class="active" href="supplier_payments.html">Supplier Payments</a>
+      <a href="receivables.html">Receivables</a>
+      <a href="profit_loss_statement.html">Profit & Loss</a>
+      <a href="cash_flow_report.html">Cash Flow</a>
+      <a href="financial_summaries.html">Summaries</a>
+      <a href="budget_utilization.html">Budget Utilization</a>
+      <a href="tax_records.html">Tax Records</a>
+      <a href="account_reconciliation.html">Reconciliation</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Supplier Payments</h2>
+        <p>Record supplier invoices and payment status.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Add / Edit Supplier Payment</h3>
+        <form id="supplierPaymentForm" action="save_supplier_payment.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="paymentId">Payment ID</label>
+              <input type="text" id="paymentId" name="payment_id" placeholder="Leave empty for new payment">
+            </div>
+            <div class="form-group">
+              <label for="supplierId">Supplier ID</label>
+              <input type="text" id="supplierId" name="supplier_id" required>
+            </div>
+            <div class="form-group">
+              <label for="invoiceNumber">Invoice Number</label>
+              <input type="text" id="invoiceNumber" name="invoice_number" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentDate">Payment Date</label>
+              <input type="date" id="paymentDate" name="payment_date" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentAmount">Amount</label>
+              <input type="number" id="paymentAmount" name="payment_amount" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentStatus">Status</label>
+              <select id="paymentStatus" name="payment_status" required>
+                <option value="">Select status</option>
+                <option value="pending">Pending</option>
+                <option value="paid">Paid</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Save Payment</button>
+            <button class="btn danger" type="submit" formaction="delete_supplier_payment.php">Delete</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Supplier Payment Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Payment ID</th>
+                <th>Supplier ID</th>
+                <th>Invoice</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="supplierPaymentsTable">
+              <tr>
+                <td colspan="6">No supplier payments loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

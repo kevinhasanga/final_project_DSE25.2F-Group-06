@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof of Delivery</title>
+  <link rel="stylesheet" href="css/driver_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Driver</h1>
+    <p>Upload proof of delivery</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Driver</h2>
+      <a href="driver_dashboard.php">Dashboard</a>
+      <a href="assigned_routes.html">Assigned Routes</a>
+      <a href="delivery_status.html">Delivery Status</a>
+      <a href="delivery_issues.html">Delivery Issues</a>
+      <a class="active" href="proof_of_delivery.html">Proof of Delivery</a>
+      <a href="fuel_usage.html">Fuel Usage</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Proof of Delivery</h2>
+        <p>Upload delivery proof after completing an order.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Upload Proof</h3>
+        <form id="proofDeliveryForm" action="upload_proof_of_delivery.php" method="post" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="proofOrderId">Order ID</label>
+              <input type="text" id="proofOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="deliveryDate">Delivery Date</label>
+              <input type="date" id="deliveryDate" name="delivery_date" required>
+            </div>
+            <div class="form-group">
+              <label for="receiverName">Receiver Name</label>
+              <input type="text" id="receiverName" name="receiver_name" required>
+            </div>
+            <div class="form-group">
+              <label for="proofFile">Proof File</label>
+              <input type="file" id="proofFile" name="proof_file" accept="image/*,.pdf" required>
+            </div>
+            <div class="form-group full-width">
+              <label for="proofRemarks">Remarks</label>
+              <textarea id="proofRemarks" name="proof_remarks"></textarea>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Upload Proof</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Uploaded Proof Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Proof ID</th>
+                <th>Order ID</th>
+                <th>Receiver</th>
+                <th>Date</th>
+                <th>File</th>
+              </tr>
+            </thead>
+            <tbody id="proofDeliveryTable">
+              <tr>
+                <td colspan="5">No proof of delivery records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

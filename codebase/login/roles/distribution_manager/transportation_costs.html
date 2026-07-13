@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transportation Costs</title>
+  <link rel="stylesheet" href="css/dm_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Distribution Management</h1>
+    <p>Record transportation costs</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Distribution</h2>
+      <a href="distribution_manager_dashboard.php">Dashboard</a>
+      <a href="confirmed_orders.html">Confirmed Orders</a>
+      <a href="delivery_schedule.html">Delivery Schedules</a>
+      <a href="driver_vehicle_assignment.html">Driver & Vehicle</a>
+      <a href="route_optimization.html">Route Planning</a>
+      <a href="dispatched_orders.html">Dispatched Orders</a>
+      <a href="delivery_progress.html">Delivery Progress</a>
+      <a class="active" href="transportation_costs.html">Transport Costs</a>
+      <a href="delivery_reports.html">Reports</a>
+      <a href="delayed_deliveries.html">Delayed Deliveries</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Transportation Costs</h2>
+        <p>Save fuel, driver, vehicle, and other delivery expenses.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Record Cost</h3>
+        <form id="transportationCostForm" action="save_transportation_cost.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="costOrderId">Order ID</label>
+              <input type="text" id="costOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="costDate">Cost Date</label>
+              <input type="date" id="costDate" name="cost_date" required>
+            </div>
+            <div class="form-group">
+              <label for="fuelCost">Fuel Cost</label>
+              <input type="number" id="fuelCost" name="fuel_cost" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="driverCost">Driver Cost</label>
+              <input type="number" id="driverCost" name="driver_cost" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="vehicleCost">Vehicle Cost</label>
+              <input type="number" id="vehicleCost" name="vehicle_cost" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="otherCost">Other Cost</label>
+              <input type="number" id="otherCost" name="other_cost" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="totalTransportCost">Total Cost</label>
+              <input type="number" id="totalTransportCost" name="total_cost" min="0" step="0.01" readonly>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="button" id="calculateTransportCostButton">Calculate</button>
+            <button class="btn" type="submit">Save Cost</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Cost Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Cost ID</th>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total Cost</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="transportationCostTable">
+              <tr>
+                <td colspan="5">No transportation cost records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

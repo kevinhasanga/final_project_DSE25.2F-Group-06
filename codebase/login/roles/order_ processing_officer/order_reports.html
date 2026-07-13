@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Reports</title>
+  <link rel="stylesheet" href="css/opo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Order Processing</h1>
+    <p>Generate sales order reports</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Order Officer</h2>
+      <a href="order_processing_officer_dashboard.php">Dashboard</a>
+      <a href="sales_order_management.html">Sales Orders</a>
+      <a href="stock_availability.html">Stock Availability</a>
+      <a href="credit_order_approval.html">Credit Approval</a>
+      <a href="invoice_generation.html">Invoices</a>
+      <a href="discount_tax_calculation.html">Discounts & Taxes</a>
+      <a href="order_status_update.html">Order Status</a>
+      <a class="active" href="order_reports.html">Order Reports</a>
+      <a href="daily_sales_totals.html">Daily Sales</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Order Reports</h2>
+        <p>Filter and generate reports for sales orders.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Report Filters</h3>
+        <form id="orderReportForm" action="generate_order_report.php" method="get">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="reportType">Report Type</label>
+              <select id="reportType" name="report_type" required>
+                <option value="">Select report type</option>
+                <option value="all_orders">All Orders</option>
+                <option value="pending_orders">Pending Orders</option>
+                <option value="completed_orders">Completed Orders</option>
+                <option value="cancelled_orders">Cancelled Orders</option>
+                <option value="credit_orders">Credit Orders</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reportCustomerId">Customer ID</label>
+              <input type="text" id="reportCustomerId" name="customer_id" placeholder="Optional">
+            </div>
+            <div class="form-group">
+              <label for="fromDate">From Date</label>
+              <input type="date" id="fromDate" name="from_date" required>
+            </div>
+            <div class="form-group">
+              <label for="toDate">To Date</label>
+              <input type="date" id="toDate" name="to_date" required>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Generate Report</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Report Results</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="orderReportTable">
+              <tr>
+                <td colspan="5">No report generated yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

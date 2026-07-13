@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount and Tax Calculation</title>
+  <link rel="stylesheet" href="css/opo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Order Processing</h1>
+    <p>Apply discounts and calculate taxes automatically</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Order Officer</h2>
+      <a href="order_processing_officer_dashboard.php">Dashboard</a>
+      <a href="sales_order_management.html">Sales Orders</a>
+      <a href="stock_availability.html">Stock Availability</a>
+      <a href="credit_order_approval.html">Credit Approval</a>
+      <a href="invoice_generation.html">Invoices</a>
+      <a class="active" href="discount_tax_calculation.html">Discounts & Taxes</a>
+      <a href="order_status_update.html">Order Status</a>
+      <a href="order_reports.html">Order Reports</a>
+      <a href="daily_sales_totals.html">Daily Sales</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Discount and Tax Calculation</h2>
+        <p>Enter order values and connect JavaScript to calculate totals.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Calculate Order Total</h3>
+        <form id="discountTaxForm" action="save_order_total.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="calculationOrderId">Order ID</label>
+              <input type="text" id="calculationOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="subTotal">Sub Total</label>
+              <input type="number" id="subTotal" name="sub_total" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="discountRate">Discount Rate (%)</label>
+              <input type="number" id="discountRate" name="discount_rate" min="0" max="100" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="taxRate">Tax Rate (%)</label>
+              <input type="number" id="taxRate" name="tax_rate" min="0" max="100" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="discountAmount">Discount Amount</label>
+              <input type="number" id="discountAmount" name="discount_amount" min="0" step="0.01" readonly>
+            </div>
+            <div class="form-group">
+              <label for="taxAmount">Tax Amount</label>
+              <input type="number" id="taxAmount" name="tax_amount" min="0" step="0.01" readonly>
+            </div>
+            <div class="form-group">
+              <label for="grandTotal">Grand Total</label>
+              <input type="number" id="grandTotal" name="grand_total" min="0" step="0.01" readonly>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="button" id="calculateTotalButton">Calculate</button>
+            <button class="btn" type="submit">Save Total</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

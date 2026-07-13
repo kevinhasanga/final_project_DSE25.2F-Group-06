@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outstanding Receivables</title>
+  <link rel="stylesheet" href="css/fo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Finance Officer</h1>
+    <p>Track outstanding receivables</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Finance Officer</h2>
+      <a href="finance_officer_dashboard.php">Dashboard</a>
+      <a href="daily_income_expenses.html">Income & Expenses</a>
+      <a href="supplier_payments.html">Supplier Payments</a>
+      <a class="active" href="receivables.html">Receivables</a>
+      <a href="profit_loss_statement.html">Profit & Loss</a>
+      <a href="cash_flow_report.html">Cash Flow</a>
+      <a href="financial_summaries.html">Summaries</a>
+      <a href="budget_utilization.html">Budget Utilization</a>
+      <a href="tax_records.html">Tax Records</a>
+      <a href="account_reconciliation.html">Reconciliation</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Outstanding Receivables</h2>
+        <p>Track customer balances and payment due dates.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Add / Edit Receivable</h3>
+        <form id="receivableForm" action="save_receivable.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="receivableId">Receivable ID</label>
+              <input type="text" id="receivableId" name="receivable_id" placeholder="Leave empty for new record">
+            </div>
+            <div class="form-group">
+              <label for="customerId">Customer ID</label>
+              <input type="text" id="customerId" name="customer_id" required>
+            </div>
+            <div class="form-group">
+              <label for="invoiceId">Invoice ID</label>
+              <input type="text" id="invoiceId" name="invoice_id" required>
+            </div>
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <input type="date" id="dueDate" name="due_date" required>
+            </div>
+            <div class="form-group">
+              <label for="receivableAmount">Amount</label>
+              <input type="number" id="receivableAmount" name="receivable_amount" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="receivableStatus">Status</label>
+              <select id="receivableStatus" name="receivable_status" required>
+                <option value="">Select status</option>
+                <option value="pending">Pending</option>
+                <option value="partly_paid">Partly Paid</option>
+                <option value="paid">Paid</option>
+                <option value="overdue">Overdue</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Save Receivable</button>
+            <button class="btn danger" type="submit" formaction="delete_receivable.php">Delete</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Receivable Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Receivable ID</th>
+                <th>Customer ID</th>
+                <th>Invoice ID</th>
+                <th>Due Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="receivablesTable">
+              <tr>
+                <td colspan="6">No receivable records loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

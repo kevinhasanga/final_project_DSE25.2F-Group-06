@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Sheets</title>
+  <link rel="stylesheet" href="css/supervisor_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>Supervisor</h1><p>Prepare payroll sheets</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Supervisor</h2>
+      <a href="supervisor_dashboard.php">Dashboard</a><a href="employee_attendance.html">Attendance</a><a href="clock_times.html">Clock Times</a><a href="overtime_records.html">Overtime</a><a href="leave_requests.html">Leave Requests</a><a href="employee_details.html">Employee Details</a><a href="salary_calculation.html">Salary Calculation</a><a class="active" href="payroll_sheets.html">Payroll Sheets</a><a href="salary_slips.html">Salary Slips</a><a href="employee_performance.html">Performance</a><a href="attendance_reports.html">Attendance Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>Payroll Sheets</h2><p>Prepare monthly payroll sheets for employees.</p></section>
+      <section class="panel">
+        <h3>Prepare Payroll Sheet</h3>
+        <form id="payrollSheetForm" action="save_payroll_sheet.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="payrollId">Payroll ID</label><input type="text" id="payrollId" name="payroll_id" placeholder="Leave empty for new payroll"></div>
+            <div class="form-group"><label for="payrollMonth">Payroll Month</label><input type="month" id="payrollMonth" name="payroll_month" required></div>
+            <div class="form-group"><label for="department">Department</label><input type="text" id="department" name="department" required></div>
+            <div class="form-group"><label for="totalEmployees">Total Employees</label><input type="number" id="totalEmployees" name="total_employees" min="0" required></div>
+            <div class="form-group"><label for="totalAmount">Total Payroll Amount</label><input type="number" id="totalAmount" name="total_amount" min="0" step="0.01" required></div>
+            <div class="form-group"><label for="payrollStatus">Status</label><select id="payrollStatus" name="payroll_status" required><option value="">Select status</option><option value="draft">Draft</option><option value="prepared">Prepared</option><option value="approved">Approved</option></select></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Payroll</button><button class="btn danger" type="submit" formaction="delete_payroll_sheet.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Payroll Sheets</h3><div class="table-wrapper"><table><thead><tr><th>Payroll ID</th><th>Month</th><th>Department</th><th>Employees</th><th>Total Amount</th><th>Status</th></tr></thead><tbody id="payrollSheetsTable"><tr><td colspan="6">No payroll sheets loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

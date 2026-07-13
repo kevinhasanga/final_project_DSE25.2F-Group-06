@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmed Orders</title>
+  <link rel="stylesheet" href="css/dm_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Distribution Management</h1>
+    <p>View confirmed orders ready for delivery planning</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Distribution</h2>
+      <a href="distribution_manager_dashboard.php">Dashboard</a>
+      <a class="active" href="confirmed_orders.html">Confirmed Orders</a>
+      <a href="delivery_schedule.html">Delivery Schedules</a>
+      <a href="driver_vehicle_assignment.html">Driver & Vehicle</a>
+      <a href="route_optimization.html">Route Planning</a>
+      <a href="dispatched_orders.html">Dispatched Orders</a>
+      <a href="delivery_progress.html">Delivery Progress</a>
+      <a href="transportation_costs.html">Transport Costs</a>
+      <a href="delivery_reports.html">Reports</a>
+      <a href="delayed_deliveries.html">Delayed Deliveries</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Confirmed Orders</h2>
+        <p>Search and view orders that are ready to be scheduled.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Search Orders</h3>
+        <form id="confirmedOrderSearchForm" action="confirmed_orders.php" method="get" class="search-row">
+          <input type="text" id="confirmedOrderKeyword" name="keyword" placeholder="Search by order ID or customer name" required>
+          <button class="btn" type="submit">Search</button>
+        </form>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Address</th>
+                <th>Order Date</th>
+                <th>Delivery Status</th>
+              </tr>
+            </thead>
+            <tbody id="confirmedOrdersTable">
+              <tr>
+                <td colspan="5">No confirmed orders loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

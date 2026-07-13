@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login History</title>
+  <link rel="stylesheet" href="css/sa_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>System Administrator</h1><p>Track login history</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>System Admin</h2>
+      <a href="system_administrator_dashboard.php">Dashboard</a><a href="create_user_accounts.html">Create Users</a><a href="assign_user_roles.html">Assign Roles</a><a href="access_privileges.html">Access Privileges</a><a href="update_user_information.html">Update Users</a><a href="reset_passwords.html">Reset Passwords</a><a href="account_status.html">Account Status</a><a href="user_activity_logs.html">Activity Logs</a><a class="active" href="login_history.html">Login History</a><a href="system_settings.html">System Settings</a><a href="notification_settings.html">Notifications</a><a href="database_backups.html">Backups</a><a href="restore_system_data.html">Restore Data</a><a href="system_errors.html">System Errors</a><a href="audit_reports.html">Audit Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>Login History</h2><p>View successful and failed login attempts.</p></section>
+      <section class="panel">
+        <h3>Filter Logins</h3>
+        <form id="loginHistoryForm" action="search_login_history.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="username">Username</label><input type="text" id="username" name="username"></div>
+            <div class="form-group"><label for="loginDate">Login Date</label><input type="date" id="loginDate" name="login_date"></div>
+            <div class="form-group"><label for="loginStatus">Status</label><select id="loginStatus" name="login_status"><option value="">All</option><option value="success">Success</option><option value="failed">Failed</option></select></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Search</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Login Records</h3><div class="table-wrapper"><table><thead><tr><th>Login ID</th><th>Username</th><th>Date</th><th>Time</th><th>Status</th><th>IP Address</th></tr></thead><tbody id="loginHistoryTable"><tr><td colspan="6">No login history loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

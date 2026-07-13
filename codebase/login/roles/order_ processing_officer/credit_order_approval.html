@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Order Approval</title>
+  <link rel="stylesheet" href="css/opo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Order Processing</h1>
+    <p>Approve or reject credit sales orders</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Order Officer</h2>
+      <a href="order_processing_officer_dashboard.php">Dashboard</a>
+      <a href="sales_order_management.html">Sales Orders</a>
+      <a href="stock_availability.html">Stock Availability</a>
+      <a class="active" href="credit_order_approval.html">Credit Approval</a>
+      <a href="invoice_generation.html">Invoices</a>
+      <a href="discount_tax_calculation.html">Discounts & Taxes</a>
+      <a href="order_status_update.html">Order Status</a>
+      <a href="order_reports.html">Order Reports</a>
+      <a href="daily_sales_totals.html">Daily Sales</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Credit Order Approval</h2>
+        <p>Review credit order requests and record approval decisions.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Approval Decision</h3>
+        <form id="creditApprovalForm" action="approve_credit_order.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="creditOrderId">Order ID</label>
+              <input type="text" id="creditOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="creditCustomerId">Customer ID</label>
+              <input type="text" id="creditCustomerId" name="customer_id" required>
+            </div>
+            <div class="form-group">
+              <label for="creditAmount">Credit Amount</label>
+              <input type="number" id="creditAmount" name="credit_amount" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label for="approvalStatus">Approval Status</label>
+              <select id="approvalStatus" name="approval_status" required>
+                <option value="">Select decision</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="approvalRemarks">Remarks</label>
+              <textarea id="approvalRemarks" name="approval_remarks"></textarea>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Save Decision</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Credit Orders</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Credit Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="creditOrdersTable">
+              <tr>
+                <td colspan="5">No credit orders loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

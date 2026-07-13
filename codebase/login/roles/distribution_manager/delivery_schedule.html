@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Schedule</title>
+  <link rel="stylesheet" href="css/dm_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Distribution Management</h1>
+    <p>Plan delivery schedules for confirmed orders</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Distribution</h2>
+      <a href="distribution_manager_dashboard.php">Dashboard</a>
+      <a href="confirmed_orders.html">Confirmed Orders</a>
+      <a class="active" href="delivery_schedule.html">Delivery Schedules</a>
+      <a href="driver_vehicle_assignment.html">Driver & Vehicle</a>
+      <a href="route_optimization.html">Route Planning</a>
+      <a href="dispatched_orders.html">Dispatched Orders</a>
+      <a href="delivery_progress.html">Delivery Progress</a>
+      <a href="transportation_costs.html">Transport Costs</a>
+      <a href="delivery_reports.html">Reports</a>
+      <a href="delayed_deliveries.html">Delayed Deliveries</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Delivery Schedule</h2>
+        <p>Create and update delivery dates and time slots.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Plan Schedule</h3>
+        <form id="deliveryScheduleForm" action="save_delivery_schedule.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="scheduleOrderId">Order ID</label>
+              <input type="text" id="scheduleOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="deliveryDate">Delivery Date</label>
+              <input type="date" id="deliveryDate" name="delivery_date" required>
+            </div>
+            <div class="form-group">
+              <label for="deliveryTime">Delivery Time</label>
+              <input type="time" id="deliveryTime" name="delivery_time" required>
+            </div>
+            <div class="form-group">
+              <label for="scheduleStatus">Schedule Status</label>
+              <select id="scheduleStatus" name="schedule_status" required>
+                <option value="">Select status</option>
+                <option value="scheduled">Scheduled</option>
+                <option value="rescheduled">Rescheduled</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="scheduleNotes">Notes</label>
+              <textarea id="scheduleNotes" name="schedule_notes"></textarea>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Save Schedule</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Scheduled Deliveries</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Schedule ID</th>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="deliveryScheduleTable">
+              <tr>
+                <td colspan="5">No delivery schedules loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

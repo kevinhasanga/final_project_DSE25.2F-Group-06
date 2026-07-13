@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Reports</title>
+  <link rel="stylesheet" href="css/supervisor_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>Supervisor</h1><p>Generate attendance reports</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Supervisor</h2>
+      <a href="supervisor_dashboard.php">Dashboard</a><a href="employee_attendance.html">Attendance</a><a href="clock_times.html">Clock Times</a><a href="overtime_records.html">Overtime</a><a href="leave_requests.html">Leave Requests</a><a href="employee_details.html">Employee Details</a><a href="salary_calculation.html">Salary Calculation</a><a href="payroll_sheets.html">Payroll Sheets</a><a href="salary_slips.html">Salary Slips</a><a href="employee_performance.html">Performance</a><a class="active" href="attendance_reports.html">Attendance Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>Attendance Reports</h2><p>Generate attendance reports by employee, department, or date range.</p></section>
+      <section class="panel">
+        <h3>Generate Report</h3>
+        <form id="attendanceReportForm" action="generate_attendance_report.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="reportType">Report Type</label><select id="reportType" name="report_type" required><option value="">Select type</option><option value="employee">Employee Wise</option><option value="department">Department Wise</option><option value="daily">Daily</option><option value="monthly">Monthly</option></select></div>
+            <div class="form-group"><label for="employeeId">Employee ID</label><input type="text" id="employeeId" name="employee_id"></div>
+            <div class="form-group"><label for="fromDate">From Date</label><input type="date" id="fromDate" name="from_date" required></div>
+            <div class="form-group"><label for="toDate">To Date</label><input type="date" id="toDate" name="to_date" required></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Generate Report</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Attendance Report Results</h3><div class="table-wrapper"><table><thead><tr><th>Employee ID</th><th>Name</th><th>Present Days</th><th>Absent Days</th><th>Leave Days</th><th>Period</th></tr></thead><tbody id="attendanceReportsTable"><tr><td colspan="6">No attendance report generated yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

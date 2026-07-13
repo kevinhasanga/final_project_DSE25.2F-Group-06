@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dispatched Orders</title>
+  <link rel="stylesheet" href="css/dm_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Distribution Management</h1>
+    <p>Track dispatched orders</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Distribution</h2>
+      <a href="distribution_manager_dashboard.php">Dashboard</a>
+      <a href="confirmed_orders.html">Confirmed Orders</a>
+      <a href="delivery_schedule.html">Delivery Schedules</a>
+      <a href="driver_vehicle_assignment.html">Driver & Vehicle</a>
+      <a href="route_optimization.html">Route Planning</a>
+      <a class="active" href="dispatched_orders.html">Dispatched Orders</a>
+      <a href="delivery_progress.html">Delivery Progress</a>
+      <a href="transportation_costs.html">Transport Costs</a>
+      <a href="delivery_reports.html">Reports</a>
+      <a href="delayed_deliveries.html">Delayed Deliveries</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Dispatched Orders</h2>
+        <p>Record dispatch details and view dispatched order records.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Dispatch Order</h3>
+        <form id="dispatchOrderForm" action="dispatch_order.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="dispatchOrderId">Order ID</label>
+              <input type="text" id="dispatchOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="dispatchDate">Dispatch Date</label>
+              <input type="date" id="dispatchDate" name="dispatch_date" required>
+            </div>
+            <div class="form-group">
+              <label for="dispatchTime">Dispatch Time</label>
+              <input type="time" id="dispatchTime" name="dispatch_time" required>
+            </div>
+            <div class="form-group">
+              <label for="dispatchStatus">Dispatch Status</label>
+              <select id="dispatchStatus" name="dispatch_status" required>
+                <option value="">Select status</option>
+                <option value="dispatched">Dispatched</option>
+                <option value="on_hold">On Hold</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Save Dispatch</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Dispatched Order Records</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Dispatch ID</th>
+                <th>Order ID</th>
+                <th>Driver</th>
+                <th>Vehicle</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="dispatchedOrdersTable">
+              <tr>
+                <td colspan="5">No dispatched orders loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

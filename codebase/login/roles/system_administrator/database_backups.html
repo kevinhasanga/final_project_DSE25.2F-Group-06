@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Backups</title>
+  <link rel="stylesheet" href="css/sa_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>System Administrator</h1><p>Perform database backups</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>System Admin</h2>
+      <a href="system_administrator_dashboard.php">Dashboard</a><a href="create_user_accounts.html">Create Users</a><a href="assign_user_roles.html">Assign Roles</a><a href="access_privileges.html">Access Privileges</a><a href="update_user_information.html">Update Users</a><a href="reset_passwords.html">Reset Passwords</a><a href="account_status.html">Account Status</a><a href="user_activity_logs.html">Activity Logs</a><a href="login_history.html">Login History</a><a href="system_settings.html">System Settings</a><a href="notification_settings.html">Notifications</a><a class="active" href="database_backups.html">Backups</a><a href="restore_system_data.html">Restore Data</a><a href="system_errors.html">System Errors</a><a href="audit_reports.html">Audit Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>Database Backups</h2><p>Create and record database backup details.</p></section>
+      <section class="panel">
+        <h3>Create Backup</h3>
+        <form id="databaseBackupForm" action="create_database_backup.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="backupName">Backup Name</label><input type="text" id="backupName" name="backup_name" required></div>
+            <div class="form-group"><label for="backupType">Backup Type</label><select id="backupType" name="backup_type" required><option value="">Select type</option><option value="full">Full</option><option value="partial">Partial</option></select></div>
+            <div class="form-group"><label for="backupDate">Backup Date</label><input type="date" id="backupDate" name="backup_date" required></div>
+            <div class="form-group"><label for="backupStatus">Status</label><select id="backupStatus" name="backup_status" required><option value="">Select status</option><option value="pending">Pending</option><option value="completed">Completed</option><option value="failed">Failed</option></select></div>
+            <div class="form-group full-width"><label for="backupNotes">Notes</label><textarea id="backupNotes" name="backup_notes"></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Create Backup</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Backup Records</h3><div class="table-wrapper"><table><thead><tr><th>Backup ID</th><th>Name</th><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody id="databaseBackupsTable"><tr><td colspan="5">No backup records loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>

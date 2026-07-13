@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Generation</title>
+  <link rel="stylesheet" href="css/opo_style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Order Processing</h1>
+    <p>Generate invoices for confirmed sales orders</p>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Order Officer</h2>
+      <a href="order_processing_officer_dashboard.php">Dashboard</a>
+      <a href="sales_order_management.html">Sales Orders</a>
+      <a href="stock_availability.html">Stock Availability</a>
+      <a href="credit_order_approval.html">Credit Approval</a>
+      <a class="active" href="invoice_generation.html">Invoices</a>
+      <a href="discount_tax_calculation.html">Discounts & Taxes</a>
+      <a href="order_status_update.html">Order Status</a>
+      <a href="order_reports.html">Order Reports</a>
+      <a href="daily_sales_totals.html">Daily Sales</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+
+    <main class="content">
+      <section class="page-title">
+        <h2>Invoice Generation</h2>
+        <p>Create invoice records from sales orders.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Generate Invoice</h3>
+        <form id="invoiceForm" action="generate_invoice.php" method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="invoiceOrderId">Order ID</label>
+              <input type="text" id="invoiceOrderId" name="order_id" required>
+            </div>
+            <div class="form-group">
+              <label for="invoiceDate">Invoice Date</label>
+              <input type="date" id="invoiceDate" name="invoice_date" required>
+            </div>
+            <div class="form-group">
+              <label for="paymentMethod">Payment Method</label>
+              <select id="paymentMethod" name="payment_method" required>
+                <option value="">Select payment method</option>
+                <option value="cash">Cash</option>
+                <option value="card">Card</option>
+                <option value="bank_transfer">Bank Transfer</option>
+                <option value="credit">Credit</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="invoiceAmount">Invoice Amount</label>
+              <input type="number" id="invoiceAmount" name="invoice_amount" min="0" step="0.01" required>
+            </div>
+          </div>
+          <div class="button-row">
+            <button class="btn" type="submit">Generate Invoice</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h3>Generated Invoices</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+              </tr>
+            </thead>
+            <tbody id="invoiceTable">
+              <tr>
+                <td colspan="5">No invoices loaded yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

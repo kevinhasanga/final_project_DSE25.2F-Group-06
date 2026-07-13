@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Performance</title>
+  <link rel="stylesheet" href="css/supervisor_style.css">
+</head>
+<body>
+  <header class="topbar"><h1>Supervisor</h1><p>Track employee performance</p></header>
+  <div class="layout">
+    <nav class="sidebar">
+      <h2>Supervisor</h2>
+      <a href="supervisor_dashboard.php">Dashboard</a><a href="employee_attendance.html">Attendance</a><a href="clock_times.html">Clock Times</a><a href="overtime_records.html">Overtime</a><a href="leave_requests.html">Leave Requests</a><a href="employee_details.html">Employee Details</a><a href="salary_calculation.html">Salary Calculation</a><a href="payroll_sheets.html">Payroll Sheets</a><a href="salary_slips.html">Salary Slips</a><a class="active" href="employee_performance.html">Performance</a><a href="attendance_reports.html">Attendance Reports</a>
+    <a href="../../communications.php">Internal Mail</a><a href="../../logout.php">Log out</a></nav>
+    <main class="content">
+      <section class="page-title"><h2>Employee Performance</h2><p>Record employee performance ratings and comments.</p></section>
+      <section class="panel">
+        <h3>Add / Edit Performance</h3>
+        <form id="performanceForm" action="save_performance.php" method="post">
+          <div class="form-grid">
+            <div class="form-group"><label for="performanceId">Performance ID</label><input type="text" id="performanceId" name="performance_id" placeholder="Leave empty for new record"></div>
+            <div class="form-group"><label for="employeeId">Employee ID</label><input type="text" id="employeeId" name="employee_id" required></div>
+            <div class="form-group"><label for="reviewDate">Review Date</label><input type="date" id="reviewDate" name="review_date" required></div>
+            <div class="form-group"><label for="rating">Rating</label><input type="number" id="rating" name="rating" min="1" max="5" required></div>
+            <div class="form-group"><label for="performanceStatus">Status</label><select id="performanceStatus" name="performance_status" required><option value="">Select status</option><option value="excellent">Excellent</option><option value="good">Good</option><option value="average">Average</option><option value="needs_improvement">Needs Improvement</option></select></div>
+            <div class="form-group full-width"><label for="comments">Comments</label><textarea id="comments" name="comments"></textarea></div>
+          </div>
+          <div class="button-row"><button class="btn" type="submit">Save Performance</button><button class="btn danger" type="submit" formaction="delete_performance.php">Delete</button><button class="btn secondary" type="reset">Clear</button></div>
+        </form>
+      </section>
+      <section class="panel"><h3>Performance Records</h3><div class="table-wrapper"><table><thead><tr><th>Performance ID</th><th>Employee ID</th><th>Review Date</th><th>Rating</th><th>Status</th></tr></thead><tbody id="performanceTable"><tr><td colspan="5">No performance records loaded yet.</td></tr></tbody></table></div></section>
+    </main>
+  </div>
+</body>
+</html>
