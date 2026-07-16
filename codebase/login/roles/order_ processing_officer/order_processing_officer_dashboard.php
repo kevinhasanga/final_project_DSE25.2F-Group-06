@@ -1,6 +1,47 @@
 <?php
 require_once __DIR__ . '/../../auth.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/helpers.php';
 require_login('Order Processing Officer');
+
+$activePage = "dashboard";
+
+$todayOrders = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM sales_order WHERE DATE(order_date) = CURDATE()"
+))[0];
+
+$pendingOrders = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM sales_order WHERE status IN ('pending', 'processing')"
+))[0];
+
+$todayInvoices = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM invoice WHERE issue_date = CURDATE()"
+))[0];
+
+$dailySales = (float) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COALESCE(SUM(total_amount), 0) FROM sales_order WHERE DATE(order_date) = CURDATE() AND status != 'cancelled'"
+))[0];
+
+$recentOrders = mysqli_query(
+    $connection,
+    "SELECT so.order_id, c.name AS customer_name, so.order_date, so.total_amount, so.status
+     FROM sales_order so
+     JOIN customer c ON c.customer_id = so.customer_id
+     ORDER BY so.order_date DESC, so.order_id DESC
+     LIMIT 8"
+);
+
+$statusClasses = [
+    "pending" => "progress",
+    "processing" => "progress",
+    "invoiced" => "resolved",
+    "completed" => "resolved",
+    "cancelled" => "pending",
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,20 +58,7 @@ require_login('Order Processing Officer');
   </header>
 
   <div class="layout">
-    <nav class="sidebar">
-      <h2><?= htmlspecialchars($_SESSION["full_name"] ?? $_SESSION["username"] ?? "User") ?></h2>
-      <a class="active" href="order_processing_officer_dashboard.php">Dashboard</a>
-      <a href="sales_order_management.html">Sales Orders</a>
-      <a href="stock_availability.html">Stock Availability</a>
-      <a href="credit_order_approval.html">Credit Approval</a>
-      <a href="invoice_generation.html">Invoices</a>
-      <a href="discount_tax_calculation.html">Discounts & Taxes</a>
-      <a href="order_status_update.html">Order Status</a>
-      <a href="order_reports.html">Order Reports</a>
-      <a href="daily_sales_totals.html">Daily Sales</a>
-      <a href="../../communications.php">Internal Mail</a>
-      <a href="../../logout.php">Log out</a>
-    </nav>
+    <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="content">
       <section class="page-title">
@@ -41,22 +69,22 @@ require_login('Order Processing Officer');
       <section class="cards">
         <div class="card">
           <h3>Today's Orders</h3>
-          <p class="number" id="todayOrders">0</p>
+          <p class="number"><?= $todayOrders ?></p>
           <p>Orders received today</p>
         </div>
         <div class="card">
           <h3>Pending Orders</h3>
-          <p class="number" id="pendingOrders">0</p>
+          <p class="number"><?= $pendingOrders ?></p>
           <p>Need processing</p>
         </div>
         <div class="card">
           <h3>Invoices</h3>
-          <p class="number" id="todayInvoices">0</p>
+          <p class="number"><?= $todayInvoices ?></p>
           <p>Generated today</p>
         </div>
         <div class="card">
           <h3>Daily Sales</h3>
-          <p class="number" id="dailySales">0</p>
+          <p class="number">Rs. <?= number_format($dailySales, 2) ?></p>
           <p>Total sales amount</p>
         </div>
       </section>
@@ -74,10 +102,19 @@ require_login('Order Processing Officer');
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody id="recentOrdersTable">
-              <tr>
-                <td colspan="5">No order records loaded yet.</td>
-              </tr>
+            <tbody>
+              <?php if (mysqli_num_rows($recentOrders) === 0): ?>
+                <tr><td colspan="5">No order records loaded yet.</td></tr>
+              <?php endif; ?>
+              <?php while ($row = mysqli_fetch_assoc($recentOrders)): ?>
+                <tr>
+                  <td><?= $row["order_id"] ?></td>
+                  <td><?= htmlspecialchars($row["customer_name"]) ?></td>
+                  <td><?= htmlspecialchars($row["order_date"]) ?></td>
+                  <td><?= number_format($row["total_amount"], 2) ?></td>
+                  <td><span class="status <?= $statusClasses[$row["status"]] ?? "progress" ?>"><?= htmlspecialchars(ucfirst($row["status"])) ?></span></td>
+                </tr>
+              <?php endwhile; ?>
             </tbody>
           </table>
         </div>

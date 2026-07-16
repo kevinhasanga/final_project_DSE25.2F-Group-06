@@ -1,6 +1,50 @@
 <?php
 require_once __DIR__ . '/../../auth.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/helpers.php';
 require_login('Inventory Manager');
+
+$activePage = "dashboard";
+
+$totalProducts = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM product"
+))[0];
+
+$lowStockCount = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM (
+        SELECT p.product_id
+        FROM product p
+        LEFT JOIN stock_batch sb ON sb.product_id = p.product_id AND sb.status = 'active'
+        GROUP BY p.product_id, p.min_stock_level
+        HAVING COALESCE(SUM(sb.current_quantity), 0) < p.min_stock_level
+     ) AS low_stock"
+))[0];
+
+$stockValue = (float) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COALESCE(SUM(sb.current_quantity * p.selling_price), 0)
+     FROM stock_batch sb
+     JOIN product p ON p.product_id = sb.product_id
+     WHERE sb.status = 'active'"
+))[0];
+
+$expiringSoon = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM stock_batch
+     WHERE status = 'active' AND expiry_date IS NOT NULL
+     AND expiry_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)"
+))[0];
+
+$recentMovements = mysqli_query(
+    $connection,
+    "SELECT sm.movement_id, p.product_name, sm.movement_type, sm.quantity, sm.movement_date
+     FROM stock_movement sm
+     JOIN product p ON p.product_id = sm.product_id
+     ORDER BY sm.movement_date DESC, sm.movement_id DESC
+     LIMIT 8"
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,20 +61,7 @@ require_login('Inventory Manager');
   </header>
 
   <div class="layout">
-    <nav class="sidebar">
-      <h2><?= htmlspecialchars($_SESSION["full_name"] ?? $_SESSION["username"] ?? "User") ?></h2>
-      <a class="active" href="inventory_manager_dashboard.php">Dashboard</a>
-      <a href="product_management.html">Products</a>
-      <a href="product_pricing.html">Pricing & Levels</a>
-      <a href="incoming_stock.html">Incoming Stock</a>
-      <a href="expiry_damage_tracking.html">Expiry & Damage</a>
-      <a href="stock_returns_transfers.html">Returns & Transfers</a>
-      <a href="stock_reports.html">Stock Reports</a>
-      <a href="low_stock_alerts.html">Low Stock Alerts</a>
-      <a href="inventory_turnover.html">Inventory Turnover</a>
-      <a href="../../communications.php">Internal Mail</a>
-      <a href="../../logout.php">Log out</a>
-    </nav>
+    <?php include __DIR__ . '/nav.php'; ?>
 
     <main class="content">
       <section class="page-title">
@@ -41,23 +72,23 @@ require_login('Inventory Manager');
       <section class="cards">
         <div class="card">
           <h3>Total Products</h3>
-          <p class="number" id="totalProducts">0</p>
+          <p class="number"><?= $totalProducts ?></p>
           <p>Active products</p>
         </div>
         <div class="card">
           <h3>Low Stock</h3>
-          <p class="number" id="lowStockCount">0</p>
+          <p class="number"><?= $lowStockCount ?></p>
           <p>Need restocking</p>
         </div>
         <div class="card">
           <h3>Stock Value</h3>
-          <p class="number" id="stockValue">0</p>
+          <p class="number">Rs. <?= number_format($stockValue, 2) ?></p>
           <p>Total valuation</p>
         </div>
         <div class="card">
           <h3>Expiring Soon</h3>
-          <p class="number" id="expiringSoon">0</p>
-          <p>Items to review</p>
+          <p class="number"><?= $expiringSoon ?></p>
+          <p>Within 7 days</p>
         </div>
       </section>
 
@@ -67,18 +98,24 @@ require_login('Inventory Manager');
           <table>
             <thead>
               <tr>
-                <th>Movement ID</th>
-                <th>Product ID</th>
+                <th>Product</th>
                 <th>Type</th>
                 <th>Quantity</th>
                 <th>Date</th>
-                <th>Location</th>
               </tr>
             </thead>
-            <tbody id="recentStockMovementTable">
-              <tr>
-                <td colspan="6">No stock movement records loaded yet.</td>
-              </tr>
+            <tbody>
+              <?php if (mysqli_num_rows($recentMovements) === 0): ?>
+                <tr><td colspan="4">No stock movement records loaded yet.</td></tr>
+              <?php endif; ?>
+              <?php while ($row = mysqli_fetch_assoc($recentMovements)): ?>
+                <tr>
+                  <td><?= htmlspecialchars($row["product_name"]) ?></td>
+                  <td><?= htmlspecialchars(ucfirst($row["movement_type"])) ?></td>
+                  <td><?= (int) $row["quantity"] ?></td>
+                  <td><?= htmlspecialchars($row["movement_date"]) ?></td>
+                </tr>
+              <?php endwhile; ?>
             </tbody>
           </table>
         </div>

@@ -1,42 +1,79 @@
 <?php
 require_once __DIR__ . '/../../auth.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/helpers.php';
 require_login('Customer Relationship Officer');
+
+$activePage = "dashboard";
+
+$totalCustomers = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM customer"
+))[0];
+
+$openComplaints = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM complaint WHERE status != 'resolved'"
+))[0];
+
+$loyaltyMembers = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM customer WHERE loyalty_points > 0"
+))[0];
+
+$promotionsSent = (int) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COUNT(*) FROM promotional_notification"
+))[0];
+
+$recentComplaints = mysqli_query(
+    $connection,
+    "SELECT c.complaint_id, cu.name AS customer_name, c.created_date, c.status
+     FROM complaint c
+     JOIN customer cu ON cu.customer_id = c.customer_id
+     ORDER BY c.created_date DESC
+     LIMIT 8"
+);
+
+$statusClasses = ["open" => "pending", "in_progress" => "progress", "resolved" => "resolved"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Relationship Officer Dashboard</title>
-  <link rel="stylesheet" href="css/cro_style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Customer Relationship Officer Dashboard</title><link rel="stylesheet" href="css/cro_style.css">
 </head>
 <body>
   <header class="topbar"><h1>Customer Relationship Officer</h1><p>Customer records, complaints, loyalty programs, promotions, and reports</p></header>
   <div class="layout">
-    <nav class="sidebar">
-      <h2><?= htmlspecialchars($_SESSION["full_name"] ?? $_SESSION["username"] ?? "User") ?></h2>
-      <a class="active" href="customer_relationship_officer_dashboard.php">Dashboard</a>
-      <a href="add_customer.html">Add Customer</a>
-      <a href="update_search_customer.html">Update/Search Customer</a>
-      <a href="customer_purchase_history.html">Purchase History</a>
-      <a href="complaint_management.html">Complaint Management</a>
-      <a href="loyalty_program_management.html">Loyalty Programs</a>
-      <a href="promotional_notification.html">Promotional Notifications</a>
-      <a href="customer_activity_reports.html">Activity Reports</a>
-      <a href="../../communications.php">Internal Mail</a>
-      <a href="../../logout.php">Log out</a>
-    </nav>
+    <?php include __DIR__ . '/nav.php'; ?>
     <main class="content">
       <section class="page-title"><h2>Dashboard</h2><p>Overview of customer relationship activities.</p></section>
       <section class="cards">
-        <div class="card"><h3>Total Customers</h3><p class="number" id="totalCustomers">0</p></div>
-        <div class="card"><h3>Open Complaints</h3><p class="number" id="openComplaints">0</p></div>
-        <div class="card"><h3>Loyalty Members</h3><p class="number" id="loyaltyMembers">0</p></div>
-        <div class="card"><h3>Promotions Sent</h3><p class="number" id="promotionsSent">0</p></div>
+        <div class="card"><h3>Total Customers</h3><p class="number"><?= $totalCustomers ?></p></div>
+        <div class="card"><h3>Open Complaints</h3><p class="number"><?= $openComplaints ?></p></div>
+        <div class="card"><h3>Loyalty Members</h3><p class="number"><?= $loyaltyMembers ?></p></div>
+        <div class="card"><h3>Promotions Sent</h3><p class="number"><?= $promotionsSent ?></p></div>
       </section>
       <section class="panel">
-        <h3>Recent Customer Activities</h3>
-        <div class="table-wrapper"><table><thead><tr><th>Date</th><th>Customer</th><th>Activity</th><th>Status</th></tr></thead><tbody><tr><td colspan="4">No activity records loaded yet.</td></tr></tbody></table></div>
+        <h3>Recent Complaints</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Complaint ID</th><th>Customer</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+              <?php if (mysqli_num_rows($recentComplaints) === 0): ?>
+                <tr><td colspan="4">No complaint records loaded yet.</td></tr>
+              <?php endif; ?>
+              <?php while ($row = mysqli_fetch_assoc($recentComplaints)): ?>
+                <tr>
+                  <td><?= $row["complaint_id"] ?></td>
+                  <td><?= htmlspecialchars($row["customer_name"]) ?></td>
+                  <td><?= htmlspecialchars($row["created_date"]) ?></td>
+                  <td><span class="status <?= $statusClasses[$row["status"]] ?? "progress" ?>"><?= htmlspecialchars(ucfirst(str_replace("_", " ", $row["status"]))) ?></span></td>
+                </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </div>

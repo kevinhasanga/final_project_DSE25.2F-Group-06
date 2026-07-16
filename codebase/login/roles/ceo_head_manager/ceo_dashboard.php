@@ -1,50 +1,79 @@
 <?php
 require_once __DIR__ . '/../../auth.php';
+require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/helpers.php';
 require_login('CEO');
+
+$activePage = "dashboard";
+
+$salesRevenue = (float) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COALESCE(SUM(total_amount), 0) FROM sales_order
+     WHERE status != 'cancelled' AND DATE_FORMAT(order_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')"
+))[0];
+
+$inventoryValue = (float) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COALESCE(SUM(sb.current_quantity * p.selling_price), 0)
+     FROM stock_batch sb JOIN product p ON p.product_id = sb.product_id
+     WHERE sb.status = 'active'"
+))[0];
+
+$thisMonthRevenue = $salesRevenue;
+$lastMonthRevenue = (float) mysqli_fetch_row(mysqli_query(
+    $connection,
+    "SELECT COALESCE(SUM(total_amount), 0) FROM sales_order
+     WHERE status != 'cancelled' AND DATE_FORMAT(order_date, '%Y-%m') = DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')"
+))[0];
+$profitGrowth = $lastMonthRevenue > 0 ? round((($thisMonthRevenue - $lastMonthRevenue) / $lastMonthRevenue) * 100, 1) : 0;
+
+$pendingApprovals = 0;
+foreach (["budget_plan" => "status", "purchase_order" => "approval_status", "discount_policy" => "status", "expansion_plan" => "status"] as $table => $column) {
+    $pendingApprovals += (int) mysqli_fetch_row(mysqli_query(
+        $connection,
+        "SELECT COUNT(*) FROM $table WHERE $column = 'pending'"
+    ))[0];
+}
+
+$businessSummary = [
+    ["Sales Revenue (this month)", "Rs. " . number_format($salesRevenue, 2), $salesRevenue > 0 ? "resolved" : "progress"],
+    ["Inventory Value", "Rs. " . number_format($inventoryValue, 2), "resolved"],
+    ["Profit Growth", $profitGrowth . "%", $profitGrowth >= 0 ? "resolved" : "pending"],
+    ["Pending Approvals", $pendingApprovals, $pendingApprovals > 0 ? "pending" : "resolved"],
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CEO Dashboard</title>
-  <link rel="stylesheet" href="css/ceo_style.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CEO Dashboard</title><link rel="stylesheet" href="css/ceo_style.css"></head>
 <body>
   <header class="topbar"><h1>CEO / Head Manager</h1><p>Centralized business dashboard and approvals</p></header>
   <div class="layout">
-    <nav class="sidebar">
-      <h2><?= htmlspecialchars($_SESSION["full_name"] ?? $_SESSION["username"] ?? "User") ?></h2>
-      <a class="active" href="ceo_dashboard.php">Dashboard</a>
-      <a href="login_profile.html">Login & Profile</a>
-      <a href="sales_performance.html">Sales Performance</a>
-      <a href="inventory_valuation.html">Inventory Valuation</a>
-      <a href="stock_movement_reports.html">Stock Movement</a>
-      <a href="delivery_performance.html">Delivery Reports</a>
-      <a href="profit_loss_statements.html">Profit & Loss</a>
-      <a href="revenue_growth.html">Revenue Growth</a>
-      <a href="budget_approval.html">Budget Approval</a>
-      <a href="major_purchases.html">Major Purchases</a>
-      <a href="discount_policies.html">Discount Policies</a>
-      <a href="departmental_targets.html">Department Targets</a>
-      <a href="employee_performance_reports.html">Employee Reports</a>
-      <a href="strategic_reports.html">Strategic Reports</a>
-      <a href="system_activities.html">System Activities</a>
-      <a href="audit_logs.html">Audit Logs</a>
-      <a href="escalated_complaints.html">Complaints</a>
-      <a href="business_expansion.html">Expansion Plans</a>
-      <a href="../../communications.php">Internal Mail</a>
-      <a href="../../logout.php">Log out</a>
-    </nav>
+    <?php include __DIR__ . '/nav.php'; ?>
     <main class="content">
       <section class="page-title"><h2>Centralized Business Dashboard</h2><p>Overview of sales, inventory, finance, delivery, and system activities.</p></section>
       <section class="cards">
-        <div class="card"><h3>Sales Revenue</h3><p class="number" id="salesRevenue">0</p><p>Current period</p></div>
-        <div class="card"><h3>Inventory Value</h3><p class="number" id="inventoryValue">0</p><p>Total stock value</p></div>
-        <div class="card"><h3>Profit Growth</h3><p class="number" id="profitGrowth">0%</p><p>Compared to last period</p></div>
-        <div class="card"><h3>Pending Approvals</h3><p class="number" id="pendingApprovals">0</p><p>Need decision</p></div>
+        <div class="card"><h3>Sales Revenue</h3><p class="number">Rs. <?= number_format($salesRevenue, 2) ?></p><p>Current period</p></div>
+        <div class="card"><h3>Inventory Value</h3><p class="number">Rs. <?= number_format($inventoryValue, 2) ?></p><p>Total stock value</p></div>
+        <div class="card"><h3>Revenue Growth</h3><p class="number"><?= $profitGrowth ?>%</p><p>Compared to last month</p></div>
+        <div class="card"><h3>Pending Approvals</h3><p class="number"><?= $pendingApprovals ?></p><p>Need decision</p></div>
       </section>
-      <section class="panel"><h3>Business Summary</h3><div class="table-wrapper"><table><thead><tr><th>Area</th><th>Current Value</th><th>Status</th><th>Updated Date</th></tr></thead><tbody id="businessSummaryTable"><tr><td colspan="4">No dashboard data loaded yet.</td></tr></tbody></table></div></section>
+      <section class="panel">
+        <h3>Business Summary</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Area</th><th>Current Value</th><th>Status</th></tr></thead>
+            <tbody>
+              <?php foreach ($businessSummary as $row): ?>
+                <tr>
+                  <td><?= htmlspecialchars($row[0]) ?></td>
+                  <td><?= htmlspecialchars((string) $row[1]) ?></td>
+                  <td><span class="status <?= $row[2] ?>"><?= $row[2] === "resolved" ? "Healthy" : ($row[2] === "pending" ? "Needs Attention" : "Watch") ?></span></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </div>
 </body>

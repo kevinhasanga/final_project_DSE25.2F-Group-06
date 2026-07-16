@@ -45,6 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["full_name"] = $user["full_name"] ?: $user["username"];
             $_SESSION["role"] = $user["role"];
 
+            $loginStatement = mysqli_prepare($connection, "INSERT INTO login_history (user_id, login_time) VALUES (?, NOW())");
+            mysqli_stmt_bind_param($loginStatement, "i", $user["user_id"]);
+            mysqli_stmt_execute($loginStatement);
+            $_SESSION["login_id"] = mysqli_insert_id($connection);
+            mysqli_stmt_close($loginStatement);
+
             $dashboard = getDashboard($user["role"]);
 
             if ($dashboard != "") {

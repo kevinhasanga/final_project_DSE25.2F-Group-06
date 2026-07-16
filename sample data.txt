@@ -1,209 +1,282 @@
-ceo/head manager
-customer relation officer
-distribution manager
-driver
-finance officer
-inventory manager
-order processing officer
-supervisor
-system administrator
 
------- Driver -----------
-full name = Nimal Perera
-username = Nimal
-password = Nimal@123
-role/job title = driver
-contact_no = 0712-345678
-base salary = 75000
-nic = 6842719350
-email = nimal@ncc.lk
-hire date = 2025-03-12
+----------------products----------------
 
-full name = Kasun Fernando
-username = Kasun
-password = Kasun@123
-role/job title = driver
-contact_no = 0723-456789
-base salary = 75000
-nic = 3975061824
-email = Kasun@ncc.lk
-hire date = 2025-02-15
+product_id = 1
+product_name = Bio Killer Larve 250 ml
+category = bio pesticide
+selling_price = 4700.00 
+min_stock_level = 50
 
-full name = Sachin Jayasinghe
-username = Sachin
-password = Sachin@123
-role/job title = driver
-contact_no = 0726-147258
-base salary = 75000
-nic = 8251946370
-email = Sachin@ncc.lk
-hire date = 2025-03-25 
+product_id = 2
+product_name = Bio Killer Larve 500 ml
+category = bio pesticide
+selling_price = 8900.00 
+min_stock_level = 50
+
+product_id = 3
+product_name = Bio Killer Larve 1 L
+category = bio pesticide
+selling_price = 12000.00 
+min_stock_level = 50
+
+product_id = 4
+product_name = Bio Killer fly 250 ml
+category = bio pesticide
+selling_price = 3200.00 
+min_stock_level = 50
+
+product_id = 5
+product_name = Bio Killer fly 500 ml
+category = bio pesticide
+selling_price = 6400.00 
+min_stock_level = 50
+
+product_id = 6
+product_name = Bio Killer fly 1 L
+category = bio pesticide
+selling_price = 9500.00 
+min_stock_level = 50
+
+product_id = 7
+product_name = Bio Killer Mite 250 ml
+category = bio pesticide
+selling_price = 2700.00 
+min_stock_level = 50
+
+product_id = 8
+product_name = Bio Killer Mite 500 ml
+category = bio pesticide
+selling_price = 5100.00 
+min_stock_level = 50
+
+product_id = 9
+product_name = Bio Killer Mite 1 L
+category = bio pesticide
+selling_price = 6900.00 
+min_stock_level = 50
+
+product_id = 10
+product_name = Bio Decomposer 1kg
+category = bio compost
+selling_price = 1500.00 
+min_stock_level = 20
+
+product_id = 11
+product_name = Bio Decomposer 5kg
+category = bio compost
+selling_price = 3500.00 
+min_stock_level = 20
+
+product_id = 12
+product_name = Bio Decomposer 10kg
+category = bio compost
+selling_price = 5600.00 
+min_stock_level = 20
+
+product_id = 13
+product_name = Bio Decomposer 20kg
+category = bio compost
+selling_price = 8000.00 
+min_stock_level = 20
+
+product_id = 14
+product_name = Mosquito Sprayer 100 ml
+category = mosquito insecticides
+selling_price = 1700.00 
+min_stock_level = 30
+
+product_id = 15
+product_name = Mosquito Sprayer 250 ml
+category = mosquito insecticides
+selling_price = 2700.00 
+min_stock_level = 30
+
+product_id = 16
+product_name = Mosquito Sprayer 500 ml
+category = mosquito insecticides
+selling_price = 4800.00 
+min_stock_level = 30
+
+product_id = 17
+product_name = Mosquito natural gel 50 ml
+category = mosquito insecticides
+selling_price = 700.00 
+min_stock_level = 40
+
+product_id = 17
+product_name = Mosquito natural gel 100 ml
+category = mosquito insecticides
+selling_price = 1200.00 
+min_stock_level = 40
 
 
-------------order processing officer------------
-full name = Sachini Perera
-username = Sachini
-password = Sachini@123
-role/job title = order_processing_officer
-contact_no = 0745-678901
-base salary = 80000
-nic = 4719283056
-email = Sachini@ncc.lk
-hire date = 2025-03-25 
 
-full name = Kavindi Silva
-username = Kavindi
-password = Kavindi@123
-role/job title = order_processing_officer
-contact_no = 0756-789012
-base salary = 80000
-nic = 9362057184
-email = Kavindi@ncc.lk
-hire date = 2025-03-28
+-----------------------------supplier---------------------------------------------
+supplier_id = 1
+supplier_name = Green Harvest Agro Center
+contact_no = 077-3458129
+email = info@greenharvestagro.example
+address = No. 76, Minuwangoda Road, Gampaha
+payment_terms = Net 30 Days
 
-------------customer relation manager -----------------
-full name = Dinithi Jayasinghe
-username = Dinithi
-password = Dinithi@123
-role/job title = customer_ralation_manager
-contact_no = 0715-024689
-base salary = 82000
-nic = 7138964205
-email = Dinithi@ncc.lk
-hire date = 2025-03-20 
+supplier_id = 2
+supplier_name = Ceylon Agro Traders
+contact_no = 071-9824605
+email = sales@ceylonagro.example
+address = No. 190, Wakwella Road, Galle
+payment_terms = Net 30 Days
 
-full name = Hiruni Gunawardena
-username = Hiruni
-password = Hiruni@123
-role/job title = customer_ralation_manager
-contact_no = 0703-913578
-base salary = 82000
-nic = 2587416093
-email = Hiruni@ncc.lk
-hire date = 2025-03-19
+supplier_id = 3
+supplier_name = Prime Agro Chemicals
+contact_no = 078-6480261
+email = contact@primeagro.example
+address = No. 154, Galle Road, Kalutara
+payment_terms = Net 15 Days
 
 
------------- supervisor ---------------------
-full name = Imran Zakhaev
-username = Imran
-password = Imran@123
-role/job title = supervisor
-contact_no = 0767-890123
-base salary = 85000
-nic = 8624071953
-email = Imran@ncc.lk
-hire date = 2025-03-09
+----------------------------vehicles----------------------------------------------
+vehicle_id = 1 
+plate_number = NC-5847
+vehicle_type = Isuzu ELF Mid-size Lorry
+capacity = 3500 kg
 
---------------- financial officer-------------------
-full name = Tharushi Bandara
-username = Tharushi
-password = Tharushi@123
-role/job title = financial_officer
-contact_no = 0778-901234
-base salary = 85000
-nic = 5492738160
-email = Tharushi@ncc.lk
-hire date = 2025-02-18
+vehicle_id = 2
+plate_number = ND-9136
+vehicle_type = Mitsubishi Canter Lorry
+capacity = 5000 kg
 
---------------- Inventory manager-------------------
-full name = Ravindu Madushanka
-username = Ravindu
-password = Ravindu@123
-role/job title = Inventory_manager
-contact_no = 0789-012345
-base salary = 80000
-nic = 3159682740
-email = Ravindu@ncc.lk
-hire date = 2025-04-02
+vehicle_id = 3
+plate_number = NA-4721
+vehicle_type = Tata LPT Cargo Truck
+capacity = 4000 kg
 
---------------- Distribution manager-------------------
-full name = Dinuka Herath
-username = Dinuka
-password = Dinuka@123
-role/job title = Distribution_manager
-contact_no = 0701-123456
-base salary = 80000
-nic = 7941526308
-email = Dinuka@ncc.lk
-hire date = 2025-04-03
+vehicle_id = 4 
+plate_number = CAB-2845
+vehicle_type = Ashok Leyland Partner
+capacity = 6000 kg
 
---------------- system admin -------------------
-full name = Supun Karunaratne
-username = sysadmin
-password = Admin@123
-role/job title = system_admin
-contact_no = 0724-345678
-base salary = 100000
-nic = 6283094715
-email = admin@ncc.lk
-hire date = 2025-04-03
+---------------------------------customers----------------------------------------
+INSERT INTO customer 
+(name, contact_no, email, address, loyalty_points)
+VALUES
+('Green Valley Agro', '071-2345678', 'info@greenvalleyagro.example', 'No. 45, Main Street, Kandy', 120),
+('Farmers Choice Agro Center', '072-3158647', 'contact@farmerschoiceagro.example', 'No. 82, Colombo Road, Gampaha', 250),
+('Nature Grow Agro', '077-4589036', 'info@naturegrowagro.example', 'No. 21, Station Road, Ragama', 180),
+('Agro Link Enterprises', '075-6341278', 'info@agrolink.example', 'No. 56, High Level Road, Nugegoda', 320),
+('Crop Care Lanka', '076-1457832', 'info@cropcarelanka.example', 'No. 114, Galle Road, Kalutara', 90),
+('Green Field Agro Chemicals', '071-8459231', 'sales@greenfieldagro.example', 'No. 33, Main Street, Matara', 210),
+('Agri Plus Trading', '078-2156938', 'contact@agriplustrading.example', 'No. 18, Negombo Road, Wattala', 150),
+('Green World Agro', '074-7582146', 'support@greenworldagro.example', 'No. 91, Temple Road, Ja-Ela', 275),
+('Crop Master Agro', '077-5691248', 'info@cropmasteragro.example', 'No. 77, Market Road, Chilaw', 110),
+('Agri Care Solutions', '076-5192684', 'sales@agricaresolutions.example', 'No. 63, Hospital Road, Galle', 400),
 
------------------ceo/head manager -----------------
-full name = Sahan Abeysekara
-username = Sahan
-password = Sahan@123
-role/job title = ceo_head_manager
-contact_no = 0779-890123
-base salary = 250000
-nic = 4578162930
-email = Sahan@ncc.lk
-hire date = 2025-04-01
+('Golden Harvest Agro', '072-9472051', 'info@goldenharvestagro.example', 'No. 29, Matara Road, Hikkaduwa', 230),
+('Agro King Enterprises', '070-5489261', 'sales@agroking.example', 'No. 101, Main Street, Kurunegala', 170),
+('Plant Care Agro Center', '075-8924510', 'info@plantcareagro.example', 'No. 44, Kandy Road, Kadawatha', 340),
+('Field Star Agro', '074-1628395', 'contact@fieldstaragro.example', 'No. 12, Old Road, Beruwala', 95),
+('Green Valley Farm Supplies', '077-2349871', 'greenvalley@agro.example', 'No. 67, Dambulla Road, Matale', 260),
+('Farmer Friend Agro', '078-3267049', 'support@farmersfriendagro.example', 'No. 88, Main Street, Puttalam', 130),
+('Crop Shield Chemicals', '071-6981542', 'sales@cropshield.example', 'No. 23, Colombo Road, Negombo', 360),
+('Eco Agro Supplies', '076-8349507', 'info@ecoagro.example', 'No. 15, Beach Road, Tangalle', 200),
+('Smart Farm Agro', '075-2418963', 'contact@smartfarmagro.example', 'No. 99, Station Road, Panadura', 145),
+('Agri Vision Lanka', '077-7924681', 'info@agrivisionlanka.example', 'No. 72, Main Street, Horana', 310),
 
------------------cleaning staff-----------------
-full name = Kishan Tharmalingam
-role/job title = cleaning
-contact_no = 0781-901234
-base salary = 50000
-nic = 2364958071
-hire date = 2025-05-03
+('Evergreen Agro Centre', '078-4378150', 'sales@evergreenagro.example', 'No. 35, Hospital Road, Badulla', 185),
+('Green Crop Solutions', '070-6591372', 'info@greencropsolutions.example', 'No. 42, Passara Road, Badulla', 290),
+('Rich Harvest Agro', '071-8602483', 'contact@richharvestagro.example', 'No. 60, New Town Road, Anuradhapura', 75),
+('Prime Agro Chemicals', '072-9713594', 'sales@primeagro.example', 'No. 14, Trincomalee Road, Habarana', 220),
+('Agri World Traders', '074-2046827', 'info@agriworldtraders.example', 'No. 50, Kandy Road, Dambulla', 340),
+('Royal Agro Centre', '075-3157938', 'contact@royalagro.example', 'No. 26, Main Street, Polonnaruwa', 190),
+('Sunrise Agro Chemicals', '076-4268049', 'sales@sunriseagro.example', 'No. 83, Colombo Road, Kurunegala', 270),
+('Green Planet Agro', '077-5379150', 'info@greenplanetagro.example', 'No. 39, Wakwella Road, Galle', 160),
+('Farm Link Enterprises', '078-6480261', 'support@farmlink.example', 'No. 104, Minuwangoda Road, Gampaha', 410),
+('Harvest Point Agro', '070-7591372', 'info@harvestpointagro.example', 'No. 68, Main Street, Matugama', 230),
 
-full name = Yashoda Senanayake
-role/job title = cleaning
-contact_no = 0713-234567
-base salary = 50000
-nic = 9813745206
-hire date = 2025-05-02
+('AgroMax Lanka', '071-7480261', 'sales@agromaxlanka.example', 'No. 90, Colombo Road, Ambalangoda', 150),
+('Fresh Field Agro', '072-8591372', 'contact@freshfieldagro.example', 'No. 31, Main Street, Akuressa', 280),
+('Pioneer Agro Supplies', '074-1824605', 'info@pioneeragro.example', 'No. 58, Station Road, Weligama', 125),
+('Green Earth Agro Centre', '075-2935716', 'sales@greenearthagro.example', 'No. 11, Main Street, Dickwella', 360),
+('Future Crop Solutions', '076-3046827', 'contact@futurecrops.example', 'No. 74, Kurunegala Road, Kuliyapitiya', 205),
+('Best Harvest Agro', '077-4157938', 'info@bestharvestagro.example', 'No. 19, Market Road, Nattandiya', 175),
+('Ceylon Agro Traders', '078-5268049', 'sales@ceylonagro.example', 'No. 145, Colombo Road, Chilaw', 390),
+('Diamond Agro Centre', '070-6379150', 'info@diamondagro.example', 'No. 37, Main Street, Wennappuwa', 240),
+('Rural Agro Supplies', '071-2349876', 'contact@ruralagro.example', 'No. 66, Main Road, Puttalam', 115),
 
------------------security -----------------
-full name = Pasindu Ekanayake
-role/job title = security
-contact_no = 0747-468023
-base salary = 70000
-nic = 8753206941
-hire date = 2025-05-04
+('Agri Gold Enterprises', '072-3456789', 'sales@agrigold.example', 'No. 52, Galle Road, Kalutara', 300),
+('Green Seed Agro', '074-4567891', 'info@greenseedagro.example', 'No. 27, Kandy Road, Kiribathgoda', 155),
+('Crop Guard Agro Chemicals', '075-5678902', 'support@cropguardagro.example', 'No. 85, High Level Road, Maharagama', 420),
+('Prosper Agro Centre', '076-6789013', 'info@prosperagro.example', 'No. 48, Main Street, Gampaha', 260),
+('Unity Agro Traders', '077-7890124', 'contact@unityagro.example', 'No. 93, Negombo Road, Wattala', 190),
+('Lanka Agro Chemicals', '078-8901235', 'sales@lankaagrochemicals.example', 'No. 22, Galle Road, Colombo', 330),
+('Farm Care Agro Mart', '070-9012346', 'contact@farmcareagromart.example', 'No. 16, Main Street, Kegalle', 140),
+('Harvest Crop Solutions', '071-1122334', 'support@harvestcropsolutions.example', 'No. 70, Main Street, Ratnapura', 275),
+('Green Leaf Agro', '072-2233445', 'sales@greenleafagro.example', 'No. 38, Hospital Road, Embilipitiya', 215),
+('Agro Tech Lanka', '077-3344556', 'contact@agrotechlanka.example', 'No. 120, Main Street, Colombo', 450);
 
-full name = Akila Samarasinghe
-role/job title = security
-contact_no = 5190472863
-base salary = 70000
-nic = 4578162930
-hire date = 2025-05-04
 
------------------packing -----------------
-full name = Malith Rajapaksha
-role/job title = packing
-contact_no = 0702-012345
-base salary = 65000
-nic = 9564381207
-hire date = 2025-04-06
 
-full name = Rizwan Ahamed
-role/job title = packing
-contact_no = 0714-135790
-base salary = 65000
-nic = 3942178650
-hire date = 2025-04-06
+-- Mock login accounts. Passwords are bcrypt hashes generated with PHP's
+-- password_hash() and are verified by login.php with password_verify().
+INSERT INTO user_account
+    (role_name, username, password_hash, email, is_active, created_at)
+VALUES
+    ('driver', 'Nimal', '$2y$10$/fEPNP9iR/aDt5XS8cVe2.gyWEEY88zlTId4i0bGZn0cSyXVNd2mm', 'nimal@ncc.lk', 1, '2025-03-12 09:00:00'),
+    ('driver', 'Kasun', '$2y$10$cY4n1zHJ8ccPngf9fQ4DC.sfKQCxBbxvBLsbkppnAQ25ZHU1PAVGG', 'Kasun@ncc.lk', 1, '2025-02-15 09:00:00'),
+    ('driver', 'Sachin', '$2y$10$55Qx2iKg46Rj/uLNGr1GB.SWYjvo6m3ID2KoCYQN1qQREw6T50dvi', 'Sachin@ncc.lk', 1, '2025-03-25 09:00:00'),
+    ('order_processing_officer', 'Sachini', '$2y$10$GLP.jtzUmPCNyYP2zRufB.nAyZdvwRZfIlJCu7sSIeiCXmhjcBYUO', 'Sachini@ncc.lk', 1, '2025-03-25 09:00:00'),
+    ('order_processing_officer', 'Kavindi', '$2y$10$Na9rs7sn5/1Zqv085fpGn.JFhl5V7F8XUn9CpX1HxvRpD2DbnAeTK', 'Kavindi@ncc.lk', 1, '2025-03-28 09:00:00'),
+    ('customer_relation_manager', 'Dinithi', '$2y$10$5CRcv3vEJpiavuoci0pmReDpns1enbdgb.GDUsA6WsZ.mK65sCNNG', 'Dinithi@ncc.lk', 1, '2025-03-20 09:00:00'),
+    ('customer_relation_manager', 'Hiruni', '$2y$10$HEQDqMGLYfH12dCRXodYCuc5eHFB3EmrW6EmaSDO5n5WvKMjzffhm', 'Hiruni@ncc.lk', 1, '2025-03-19 09:00:00'),
+    ('supervisor', 'Imran', '$2y$10$E5rtDnDczLDTKOgNTYBvwuqOJdhl4IFICcj8uNLn9fVA4O3Qv61za', 'Imran@ncc.lk', 1, '2025-03-09 09:00:00'),
+    ('financial_officer', 'Tharushi', '$2y$10$7oQr4uM8kZAaT6afNyyJXuGtsLZtAbby0irmBbzP5dHoPKaEPei/K', 'Tharushi@ncc.lk', 1, '2025-02-18 09:00:00'),
+    ('inventory_manager', 'Ravindu', '$2y$10$rdYnhIebLGr8XgjT5IYjeuWu6RZ8zPH2HgRS/3sqNXeAD6.VrszqG', 'Ravindu@ncc.lk', 1, '2025-04-02 09:00:00'),
+    ('distribution_manager', 'Dinuka', '$2y$10$ZBLvXhlZOnU1MushvD7wR.ggOcX4MOTJ46Ojmwhnt/6UiS78Ltmv6', 'Dinuka@ncc.lk', 1, '2025-04-03 09:00:00'),
+    ('system_admin', 'sysadmin', '$2y$10$3GuIIHb3V2Oak2eUWI8r/Oox9f547MP6Ubv278pxjcp4dX5w6CcSe', 'admin@ncc.lk', 1, '2025-04-03 09:00:00'),
+    ('ceo_head_manager', 'Sahan', '$2y$10$S/BAMXpbeuQ0yMFGQAtFcO11oI0HBOGxxu//BASXF0Br.WmH93L3K', 'Sahan@ncc.lk', 1, '2025-04-01 09:00:00')
+ON DUPLICATE KEY UPDATE
+    role_name = VALUES(role_name),
+    password_hash = VALUES(password_hash),
+    email = VALUES(email),
+    is_active = VALUES(is_active),
+    created_at = VALUES(created_at);
 
-full name = Kavindu Dissanayake
-role/job title = packing
-contact_no = 0725-246801
-base salary = 65000
-nic = 7285063194
-hire date = 2025-04-09
+-- All staff records. Staff without application credentials have a NULL user_id.
+INSERT INTO employee
+    (user_id, full_name, nic, contact_no, address, job_title, hire_date, base_salary, employment_status)
+VALUES
+    ((SELECT user_id FROM user_account WHERE username = 'Nimal'), 'Nimal Perera', '6842719350', '0712-345678', NULL, 'driver', '2025-03-12', 75000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Kasun'), 'Kasun Fernando', '3975061824', '0723-456789', NULL, 'driver', '2025-02-15', 75000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Sachin'), 'Sachin Jayasinghe', '8251946370', '0726-147258', NULL, 'driver', '2025-03-25', 75000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Sachini'), 'Sachini Perera', '4719283056', '0745-678901', NULL, 'order_processing_officer', '2025-03-25', 80000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Kavindi'), 'Kavindi Silva', '9362057184', '0756-789012', NULL, 'order_processing_officer', '2025-03-28', 80000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Dinithi'), 'Dinithi Jayasinghe', '7138964205', '0715-024689', NULL, 'customer_relation_manager', '2025-03-20', 82000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Hiruni'), 'Hiruni Gunawardena', '2587416093', '0703-913578', NULL, 'customer_relation_manager', '2025-03-19', 82000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Imran'), 'Imran Zakhaev', '8624071953', '0767-890123', NULL, 'supervisor', '2025-03-09', 85000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Tharushi'), 'Tharushi Bandara', '5492738160', '0778-901234', NULL, 'financial_officer', '2025-02-18', 85000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Ravindu'), 'Ravindu Madushanka', '3159682740', '0789-012345', NULL, 'inventory_manager', '2025-04-02', 80000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Dinuka'), 'Dinuka Herath', '7941526308', '0701-123456', NULL, 'distribution_manager', '2025-04-03', 80000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'sysadmin'), 'Supun Karunaratne', '6283094715', '0724-345678', NULL, 'system_admin', '2025-04-03', 100000.00, 'active'),
+    ((SELECT user_id FROM user_account WHERE username = 'Sahan'), 'Sahan Abeysekara', '4578162930', '0779-890123', NULL, 'ceo_head_manager', '2025-04-01', 250000.00, 'active'),
+    (NULL, 'Kishan Tharmalingam', '2364958071', '0781-901234', NULL, 'cleaning', '2025-05-03', 50000.00, 'active'),
+    (NULL, 'Yashoda Senanayake', '9813745206', '0713-234567', NULL, 'cleaning', '2025-05-02', 50000.00, 'active'),
+    (NULL, 'Pasindu Ekanayake', '8753206941', '0747-468023', NULL, 'security', '2025-05-04', 70000.00, 'active'),
+    -- The supplied NIC duplicated Sahan's; this unique mock NIC keeps the seed valid.
+    (NULL, 'Akila Samarasinghe', '4578162931', '5190472863', NULL, 'security', '2025-05-04', 70000.00, 'active'),
+    (NULL, 'Malith Rajapaksha', '9564381207', '0702-012345', NULL, 'packing', '2025-04-06', 65000.00, 'active'),
+    (NULL, 'Rizwan Ahamed', '3942178650', '0714-135790', NULL, 'packing', '2025-04-06', 65000.00, 'active'),
+    (NULL, 'Kavindu Dissanayake', '7285063194', '0725-246801', NULL, 'packing', '2025-04-09', 65000.00, 'active'),
+    (NULL, 'Anushiya Rajendran', '6439817520', '0758-579134', NULL, 'packing', '2025-04-29', 65000.00, 'active')
+ON DUPLICATE KEY UPDATE
+    user_id = VALUES(user_id),
+    full_name = VALUES(full_name),
+    contact_no = VALUES(contact_no),
+    address = VALUES(address),
+    job_title = VALUES(job_title),
+    hire_date = VALUES(hire_date),
+    base_salary = VALUES(base_salary),
+    employment_status = VALUES(employment_status);
 
-full name = Anushiya Rajendran
-role/job title = packing
-contact_no = 0758-579134
-base salary = 65000
-nic = 6439817520
-hire date = 2025-04-29
+
+
+
+
