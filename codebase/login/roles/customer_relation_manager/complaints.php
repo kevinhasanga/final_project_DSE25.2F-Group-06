@@ -183,5 +183,6 @@ $statusClasses = ["open" => "pending", "in_progress" => "progress", "resolved" =
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

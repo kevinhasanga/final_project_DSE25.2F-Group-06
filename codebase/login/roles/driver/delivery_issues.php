@@ -143,5 +143,6 @@ $issueTypeOptions = ["wrong_address" => "Wrong Address", "customer_unavailable" 
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

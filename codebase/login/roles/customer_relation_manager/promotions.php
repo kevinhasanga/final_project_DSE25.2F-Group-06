@@ -141,5 +141,6 @@ $groupOptions = ["all" => "All Customers", "loyalty" => "Loyalty Members", "corp
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

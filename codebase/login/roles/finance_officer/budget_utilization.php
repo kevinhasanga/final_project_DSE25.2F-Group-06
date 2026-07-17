@@ -108,5 +108,6 @@ $budgets = mysqli_fetch_all($budgets, MYSQLI_ASSOC);
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

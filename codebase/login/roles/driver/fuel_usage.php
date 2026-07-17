@@ -172,5 +172,6 @@ $fuelRecords = mysqli_query(
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

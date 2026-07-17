@@ -245,5 +245,6 @@ $payrollRecords = mysqli_query(
       <?php endif; ?>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ require_login('Finance Officer', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $reportType = $_GET["report_type"] ?? "";
 $fromDate = $_GET["from_date"] ?? "";
@@ -146,6 +147,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/fo_style.css?v=<?= filemtime(__DIR__ . '/../css/fo_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Finance Officer</h1><p>Profit and loss, cash flow, and financial summaries</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -154,7 +158,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Generate Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -179,12 +183,13 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required>
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required data-after="#fromDate">
             </div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Generate</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "profit_loss"): ?>
         <section class="panel">
@@ -195,7 +200,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat warning"><p class="label">Total Expenses</p><p class="value"><?= number_format($totalExpense, 2) ?></p></div>
             <div class="stat <?= ($totalIncome - $totalExpense) >= 0 ? "good" : "warning" ?>"><p class="label">Net Profit</p><p class="value"><?= number_format($totalIncome - $totalExpense, 2) ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped as a statement — Income then Expense, each broken down by category — instead of one mixed chronological list.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Description</th><th>Amount</th></tr></thead>
             <tbody>
@@ -228,7 +232,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat <?= $cashEndingBalance >= 0 ? "good" : "warning" ?>"><p class="label">Ending Balance</p><p class="value"><?= number_format($cashEndingBalance, 2) ?></p></div>
             <div class="stat <?= $deficitDays > 0 ? "warning" : "" ?>"><p class="label">Deficit Days</p><p class="value"><?= $deficitDays ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Running balance day by day — Deficit Days counts how many days the balance dipped below zero, i.e. spending outran what came in up to that point.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Date</th><th>Cash In</th><th>Cash Out</th><th>Daily Net</th><th>Balance</th></tr></thead>
             <tbody>
@@ -279,7 +282,13 @@ $generatedOn = date("Y-m-d H:i");
           </table></div>
         </section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

@@ -170,5 +170,6 @@ $statusClasses = ["active" => "progress", "completed" => "resolved", "cancelled"
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

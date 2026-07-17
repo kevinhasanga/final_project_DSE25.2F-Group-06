@@ -141,7 +141,7 @@ $attendanceRecords = mysqli_query(
             </div>
             <div class="form-group">
               <label for="clockOut">Clock Out</label>
-              <input type="time" id="clockOut" name="clock_out" value="<?= htmlspecialchars($editRecord["clock_out"] ?? "") ?>">
+              <input type="time" id="clockOut" name="clock_out" value="<?= htmlspecialchars($editRecord["clock_out"] ?? "") ?>" data-after="#clockIn">
             </div>
             <div class="form-group">
               <label for="overtimeHours">Overtime Hours</label>
@@ -196,5 +196,6 @@ $attendanceRecords = mysqli_query(
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

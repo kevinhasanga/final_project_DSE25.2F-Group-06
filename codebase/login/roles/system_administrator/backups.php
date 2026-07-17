@@ -172,5 +172,6 @@ $records = mysqli_query($connection, "SELECT * FROM backup_record ORDER BY date 
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

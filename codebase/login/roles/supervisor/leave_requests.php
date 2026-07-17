@@ -150,7 +150,7 @@ $leaveRequests = mysqli_query(
             </div>
             <div class="form-group">
               <label for="endDate">To Date</label>
-              <input type="date" id="endDate" name="end_date" value="<?= htmlspecialchars($editRecord["end_date"] ?? "") ?>" required>
+              <input type="date" id="endDate" name="end_date" value="<?= htmlspecialchars($editRecord["end_date"] ?? "") ?>" required data-after="#startDate">
             </div>
             <div class="form-group">
               <label for="status">Status</label>
@@ -230,5 +230,6 @@ $leaveRequests = mysqli_query(
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

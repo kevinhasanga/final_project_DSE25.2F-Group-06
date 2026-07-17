@@ -153,7 +153,7 @@ $reasonOptions = ["traffic" => "Traffic", "vehicle_issue" => "Vehicle Issue", "w
             </div>
             <div class="form-group">
               <label for="newExpectedDate">New Expected Date</label>
-              <input type="date" id="newExpectedDate" name="new_expected_date" required>
+              <input type="date" id="newExpectedDate" name="new_expected_date" required min="<?= date("Y-m-d") ?>">
             </div>
             <div class="form-group full-width">
               <label for="actionTaken">Action Taken</label>
@@ -218,5 +218,6 @@ $reasonOptions = ["traffic" => "Traffic", "vehicle_issue" => "Vehicle Issue", "w
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

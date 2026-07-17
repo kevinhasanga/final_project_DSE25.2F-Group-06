@@ -114,5 +114,6 @@ $orders = mysqli_stmt_get_result($statement);
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

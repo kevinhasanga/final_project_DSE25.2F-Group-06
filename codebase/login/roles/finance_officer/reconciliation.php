@@ -182,5 +182,6 @@ $statusClasses = ["matched" => "resolved", "difference_found" => "pending", "pen
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

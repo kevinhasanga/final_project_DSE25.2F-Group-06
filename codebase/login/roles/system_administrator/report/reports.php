@@ -6,6 +6,7 @@ require_login('Admin', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $reportType = $_GET["report_type"] ?? "";
 $fromDate = $_GET["from_date"] ?? "";
@@ -177,6 +178,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/sa_style.css?v=<?= filemtime(__DIR__ . '/../css/sa_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>System Administrator</h1><p>Generate audit reports for user activity, logins, and system changes</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -185,7 +189,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Generate Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -211,12 +215,13 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required>
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required data-after="#fromDate">
             </div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "user_activity"): ?>
         <section class="panel">
@@ -226,7 +231,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat"><p class="label">Total Actions</p><p class="value"><?= count($activityRows) ?></p></div>
             <div class="stat"><p class="label">Active Users</p><p class="value"><?= count($activityByUser) ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by user and ranked by activity volume, so the busiest accounts show first — useful for spotting unusual activity concentrated on one account.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Action</th><th>Target</th><th>Date</th></tr></thead>
             <tbody>
@@ -250,7 +254,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat"><p class="label">Total Changes</p><p class="value"><?= count($activityRows) ?></p></div>
             <div class="stat"><p class="label">Areas Touched</p><p class="value"><?= count($changesByTable) ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by the system area touched, ranked by volume — useful for spotting an area (e.g. user accounts, access privileges) with unusually heavy changes in the period.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>User</th><th>Action</th><th>Date</th></tr></thead>
             <tbody>
@@ -275,7 +278,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat"><p class="label">Unique Users</p><p class="value"><?= count($loginByUser) ?></p></div>
             <div class="stat <?= $totalNoLogout > 0 ? "warning" : "" ?>"><p class="label">Sessions Without Logout</p><p class="value"><?= $totalNoLogout ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by user and ranked by session count. Sessions Without Logout means the session ended without a recorded logout (browser closed, crash, timeout) — worth a look if concentrated on one account.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Login Time</th><th>Logout Time</th></tr></thead>
             <tbody>
@@ -304,7 +306,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat warning"><p class="label">Still Open</p><p class="value"><?= $openErrors ?></p></div>
             <div class="stat"><p class="label">Resolution Rate</p><p class="value"><?= $errorResolutionRate ?>%</p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by status with Open first, since those need action soonest.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Date</th><th>Type</th><th>Message</th></tr></thead>
             <tbody>
@@ -319,7 +320,13 @@ $generatedOn = date("Y-m-d H:i");
           </table></div>
         </section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

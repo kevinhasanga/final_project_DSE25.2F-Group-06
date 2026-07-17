@@ -466,5 +466,6 @@ $statusClasses = ["pending" => "progress", "processing" => "progress", "invoiced
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

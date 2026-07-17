@@ -6,6 +6,7 @@ require_login('Supervisor', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $employees = getAllEmployees($connection);
 
@@ -172,6 +173,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/supervisor_style.css?v=<?= filemtime(__DIR__ . '/../css/supervisor_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Supervisor</h1><p>Generate attendance reports</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -180,7 +184,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Attendance Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportEmployee">Employee (optional)</label>
@@ -199,12 +203,13 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="reportTo">To</label>
-              <input type="date" id="reportTo" name="report_to" value="<?= htmlspecialchars($reportTo) ?>" required>
+              <input type="date" id="reportTo" name="report_to" value="<?= htmlspecialchars($reportTo) ?>" required data-after="#reportFrom">
             </div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportFrom !== "" && $reportTo !== ""): ?>
         <section class="panel">
@@ -216,7 +221,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat warning"><p class="label">Total Absent Days</p><p class="value"><?= $totalAbsent ?></p></div>
             <div class="stat"><p class="label">Total Leave Days</p><p class="value"><?= $totalLeave ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by attendance tier, worst first — Concern (under 75% present) and Watch (75–89%) are the employees worth a conversation before it shows up as a bigger problem.</p>
           <div class="table-wrapper">
             <table>
               <thead><tr><th>Employee</th><th>Present Days</th><th>Absent Days</th><th>Leave Days</th><th>Attendance Rate</th></tr></thead>
@@ -243,7 +247,13 @@ $generatedOn = date("Y-m-d H:i");
       <?php else: ?>
         <section class="panel"><p style="padding: 14px 20px; color: #7f93b3;">Select a date range to generate the attendance report.</p></section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

@@ -228,7 +228,7 @@ $statusClasses = [
             </div>
             <div class="form-group">
               <label for="expiryDate">Expiry Date</label>
-              <input type="date" id="expiryDate" name="expiry_date">
+              <input type="date" id="expiryDate" name="expiry_date" data-after="#receivedDate">
             </div>
             <div class="form-group">
               <label for="originalQuantity">Quantity</label>
@@ -281,5 +281,6 @@ $statusClasses = [
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

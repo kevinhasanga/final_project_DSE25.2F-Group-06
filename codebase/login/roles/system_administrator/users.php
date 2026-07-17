@@ -154,7 +154,7 @@ $users = mysqli_query(
             <?php if (!$editRecord): ?>
             <div class="form-group">
               <label for="nic">NIC</label>
-              <input type="text" id="nic" name="nic" required>
+              <input type="text" id="nic" name="nic" required pattern="[0-9]{9}[vVxX]|[0-9]{12}" title="Enter a valid NIC (9 digits + V/X, or 12 digits).">
             </div>
             <?php endif; ?>
             <div class="form-group">
@@ -180,7 +180,7 @@ $users = mysqli_query(
             </div>
             <div class="form-group">
               <label for="newPassword"><?= $editRecord ? "Reset Password" : "Password" ?></label>
-              <input type="password" id="newPassword" name="new_password" placeholder="<?= $editRecord ? "Leave blank to keep current password" : "" ?>" <?= $editRecord ? "" : "required" ?>>
+              <input type="password" id="newPassword" name="new_password" placeholder="<?= $editRecord ? "Leave blank to keep current password" : "" ?>" <?= $editRecord ? "" : "required" ?> minlength="8" title="At least 8 characters.">
             </div>
             <?php if ($editRecord): ?>
             <div class="form-group">
@@ -230,5 +230,6 @@ $users = mysqli_query(
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

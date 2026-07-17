@@ -6,6 +6,7 @@ require_login('Customer Relationship Officer', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $customers = getAllCustomers($connection);
 $reportType = $_GET["report_type"] ?? "";
@@ -224,6 +225,9 @@ $generatedOn = date("Y-m-d H:i");
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reports</title><link rel="stylesheet" href="../css/cro_style.css?v=<?= filemtime(__DIR__ . '/../css/cro_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Customer Relationship Officer</h1><p>Generate customer activity reports</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -232,7 +236,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Report Filters</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -261,13 +265,14 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>">
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" data-after="#fromDate">
             </div>
           </div>
           <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Date range is not required for the Loyalty report.</p>
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "purchases"): ?>
         <section class="panel">
@@ -293,7 +298,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value" style="font-size: 15px;"><?= $topCustomerName !== "" ? htmlspecialchars($topCustomerName) : "—" ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by customer and ranked by spend, so the accounts worth the most attention show first — useful for prioritizing account visits or loyalty outreach.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Order ID</th><th>Item</th><th>Quantity</th><th>Line Total</th></tr></thead>
@@ -350,7 +354,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= $resolutionRate ?>%</p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by status with Open first, since those need action soonest. Age is days still outstanding for Open/In Progress, or days it took to resolve for Resolved — use it to catch complaints that have been sitting too long.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>ID</th><th>Customer</th><th>Description</th><th>Age (days)</th></tr></thead>
@@ -393,7 +396,6 @@ $generatedOn = date("Y-m-d H:i");
               </div>
             <?php endforeach; ?>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped into tiers (Platinum 400+, Gold 250+, Silver 150+, Bronze below) — use this to target the top tier for VIP perks or the bottom tier for re-engagement offers.</p>
           <div class="table-wrapper">
             <table>
               <thead><tr><th>Customer ID</th><th>Name</th><th>Loyalty Points</th></tr></thead>
@@ -439,7 +441,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= count($promotionsByGroup) ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by customer segment, so reach per segment is easy to compare — useful for checking a campaign wasn't skewed to one group.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Title</th><th>Message</th><th>Sent At</th></tr></thead>
@@ -465,7 +466,13 @@ $generatedOn = date("Y-m-d H:i");
           <?php endif; ?>
         </section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

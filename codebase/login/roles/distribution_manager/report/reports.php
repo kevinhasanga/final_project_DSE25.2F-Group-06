@@ -6,6 +6,7 @@ require_login('Distribution Manager', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $drivers = getAllDrivers($connection);
 $reportType = $_GET["report_type"] ?? "";
@@ -153,6 +154,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/dm_style.css?v=<?= filemtime(__DIR__ . '/../css/dm_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Distribution Management</h1><p>Generate delivery performance reports</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -161,7 +165,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Report Filters</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -189,12 +193,13 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required>
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" required data-after="#fromDate">
             </div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType !== "" && $fromDate !== "" && $toDate !== ""): ?>
         <section class="panel">
@@ -223,7 +228,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= number_format($totalCost, 2) ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by driver and ranked by delay count, so drivers who need coaching or support surface first instead of getting lost in a flat delivery log.</p>
           <?php elseif ($reportType === "completed"): ?>
             <div class="report-summary">
               <div class="stat">
@@ -239,7 +243,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= $totalDeliveries > 0 ? number_format($totalCost / $totalDeliveries, 2) : "0.00" ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by driver and ranked by completed volume — a quick read on who's carrying the most delivery load.</p>
           <?php elseif ($reportType === "delayed"): ?>
             <div class="report-summary">
               <div class="stat warning">
@@ -255,7 +258,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value" style="font-size: 15px;"><?= $worstDriverName !== "" ? htmlspecialchars($worstDriverName) . " (" . $worstDriverDelays . ")" : "—" ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by driver and ranked by delay count — an accountability view for coaching conversations, not just a list of late jobs.</p>
           <?php elseif ($reportType === "transport_costs"): ?>
             <div class="report-summary">
               <div class="stat">
@@ -271,7 +273,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value" style="font-size: 15px;"><?= $topVehicleLabel !== "" ? htmlspecialchars($topVehicleLabel) : "—" ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by vehicle and ranked by cost — useful for spotting a vehicle that's getting expensive to run before it shows up as a maintenance emergency.</p>
           <?php endif; ?>
 
           <div class="table-wrapper">
@@ -345,7 +346,13 @@ $generatedOn = date("Y-m-d H:i");
       <?php elseif ($reportType !== ""): ?>
         <section class="panel"><p style="padding: 14px 20px; color: #7f93b3;">Select a date range to generate this report.</p></section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

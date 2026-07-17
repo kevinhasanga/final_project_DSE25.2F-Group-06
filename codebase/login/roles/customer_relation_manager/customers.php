@@ -130,7 +130,7 @@ $customers = mysqli_stmt_get_result($statement);
             </div>
             <div class="form-group">
               <label for="contactNo">Phone Number</label>
-              <input id="contactNo" type="tel" name="contact_no" value="<?= htmlspecialchars($editRecord["contact_no"] ?? "") ?>" required>
+              <input id="contactNo" type="tel" name="contact_no" value="<?= htmlspecialchars($editRecord["contact_no"] ?? "") ?>" required pattern="[0-9+ -]{7,15}" title="Enter a valid phone number (7-15 digits).">
             </div>
             <div class="form-group">
               <label for="loyaltyPoints">Loyalty Points</label>
@@ -200,5 +200,6 @@ $customers = mysqli_stmt_get_result($statement);
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

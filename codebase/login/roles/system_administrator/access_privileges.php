@@ -181,5 +181,6 @@ $accessLevelOptions = ["view" => "View", "create" => "Create", "update" => "Upda
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

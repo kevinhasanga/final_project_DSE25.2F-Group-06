@@ -93,7 +93,7 @@ $loginHistory = mysqli_stmt_get_result($loginStatement);
             </div>
             <div class="form-group">
               <label for="contactNo">Phone</label>
-              <input type="tel" id="contactNo" name="contact_no" value="<?= htmlspecialchars($profile["contact_no"]) ?>">
+              <input type="tel" id="contactNo" name="contact_no" value="<?= htmlspecialchars($profile["contact_no"]) ?>" pattern="[0-9+ -]{7,15}" title="Enter a valid phone number (7-15 digits).">
             </div>
             <div class="form-group">
               <label for="username">Username</label>
@@ -101,7 +101,7 @@ $loginHistory = mysqli_stmt_get_result($loginStatement);
             </div>
             <div class="form-group">
               <label for="newPassword">New Password</label>
-              <input type="password" id="newPassword" name="new_password" placeholder="Leave blank to keep current password">
+              <input type="password" id="newPassword" name="new_password" placeholder="Leave blank to keep current password" minlength="8" title="At least 8 characters.">
             </div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Update Profile</button></div>
@@ -130,5 +130,6 @@ $loginHistory = mysqli_stmt_get_result($loginStatement);
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

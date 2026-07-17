@@ -6,6 +6,7 @@ require_login('Inventory Manager', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $products = getAllProducts($connection);
 $reportType = $_GET["report_type"] ?? "";
@@ -223,6 +224,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/inventory_style.css?v=<?= filemtime(__DIR__ . '/../css/inventory_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Inventory Manager</h1><p>Generate stock valuation, movement, and turnover reports</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -231,7 +235,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Generate Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -259,13 +263,14 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>">
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" data-after="#fromDate">
             </div>
           </div>
           <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Date range is required for the Movement and Turnover reports.</p>
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "valuation"): ?>
         <section class="panel">
@@ -288,7 +293,6 @@ $generatedOn = date("Y-m-d H:i");
               <p class="value"><?= count($valuationRows) ?></p>
             </div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by category and ranked by value, so the categories holding the most capital show first — useful for deciding where to slow down purchasing or run a clearance.</p>
           <div class="table-wrapper">
             <table>
               <thead><tr><th>Product</th><th>Current Stock</th><th>Selling Price</th><th>Value</th></tr></thead>
@@ -352,7 +356,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= number_format($shrinkageValue, 2) ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by movement type with totals per group, and shrinkage (damage + expiry) called out separately — that's stock that turned into a direct loss rather than a sale.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Product</th><th>Quantity</th><th>Date</th><th>Notes</th></tr></thead>
@@ -408,7 +411,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= $turnoverSummary["Fast-moving"] ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Sorted worst-first by turnover rate, so dead stock and slow movers — the products tying up cash without selling — surface at the top instead of getting buried alphabetically.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Product</th><th>Opening Stock</th><th>Closing Stock</th><th>Moved Out</th><th>Turnover Rate</th><th>Status</th></tr></thead>
@@ -440,7 +442,13 @@ $generatedOn = date("Y-m-d H:i");
           <?php endif; ?>
         </section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

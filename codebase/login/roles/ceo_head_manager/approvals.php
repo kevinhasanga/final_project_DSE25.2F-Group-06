@@ -286,7 +286,7 @@ $statusClasses = ["pending" => "progress", "approved" => "resolved", "rejected" 
             <div class="form-group"><label for="policyName">Policy Name</label><input id="policyName" name="policy_name" required></div>
             <div class="form-group"><label for="discountRate">Discount Rate (%)</label><input id="discountRate" type="number" name="discount_rate" min="0" max="100" step="0.01" required></div>
             <div class="form-group"><label for="validFrom">Valid From</label><input id="validFrom" type="date" name="valid_from" required></div>
-            <div class="form-group"><label for="validTo">Valid To</label><input id="validTo" type="date" name="valid_to"></div>
+            <div class="form-group"><label for="validTo">Valid To</label><input id="validTo" type="date" name="valid_to" data-after="#validFrom"></div>
           </div>
           <div class="button-row"><button class="btn" type="submit">Record Discount Policy</button></div>
         </form>
@@ -358,5 +358,6 @@ $statusClasses = ["pending" => "progress", "approved" => "resolved", "rejected" 
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

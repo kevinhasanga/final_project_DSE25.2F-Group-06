@@ -277,5 +277,6 @@ $notificationSettings = mysqli_query($connection, "SELECT * FROM notification_se
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

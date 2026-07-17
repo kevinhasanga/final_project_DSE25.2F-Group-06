@@ -169,5 +169,6 @@ $totalOutstanding = (float) mysqli_fetch_assoc($totalOutstandingResult)["total_o
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

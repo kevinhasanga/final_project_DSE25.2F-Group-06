@@ -202,5 +202,6 @@ $taxTypeOptions = ["vat" => "VAT", "income_tax" => "Income Tax", "withholding_ta
       </section>
     </main>
   </div>
+  <script src="js/validate.js"></script>
 </body>
 </html>

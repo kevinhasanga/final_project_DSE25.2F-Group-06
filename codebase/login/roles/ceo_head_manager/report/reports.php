@@ -6,6 +6,7 @@ require_login('CEO', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $reportType = $_GET["report_type"] ?? "";
 $fromDate = $_GET["from_date"] ?? "";
@@ -392,6 +393,9 @@ $generatedOn = date("Y-m-d H:i");
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Reports</title><link rel="stylesheet" href="../css/ceo_style.css?v=<?= filemtime(__DIR__ . '/../css/ceo_style.css') ?>"></head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>CEO / Head Manager</h1><p>Sales, inventory, finance, delivery, employee, and system reports</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -400,7 +404,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Generate Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -421,7 +425,7 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>">
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" data-after="#fromDate">
             </div>
             <div class="form-group">
               <label for="year">Year (Revenue Growth report)</label>
@@ -432,6 +436,7 @@ $generatedOn = date("Y-m-d H:i");
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "sales"): ?>
         <section class="panel">
@@ -471,7 +476,6 @@ $generatedOn = date("Y-m-d H:i");
             <div class="stat"><p class="label">Categories</p><p class="value"><?= count($inventoryByCategory) ?></p></div>
             <div class="stat"><p class="label">Products Listed</p><p class="value"><?= count($inventoryRows) ?></p></div>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by category and ranked by value, so the categories holding the most capital show first.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Total Value</th></tr></thead>
             <tbody>
@@ -508,7 +512,6 @@ $generatedOn = date("Y-m-d H:i");
               <div class="stat warning"><p class="label">Shrinkage (damaged + expired)</p><p class="value"><?= $shrinkageQuantity ?> units</p></div>
               <div class="stat warning"><p class="label">Shrinkage Value Lost</p><p class="value"><?= number_format($shrinkageValue, 2) ?></p></div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by movement type, with shrinkage (damage + expiry) called out separately — that's stock that turned into a direct loss rather than a sale.</p>
             <div class="table-wrapper"><table>
               <thead><tr><th>Product</th><th>Quantity</th><th>Date</th></tr></thead>
               <tbody>
@@ -537,7 +540,6 @@ $generatedOn = date("Y-m-d H:i");
               <div class="stat warning"><p class="label">Delayed</p><p class="value"><?= $deliveryDelayedCount ?></p></div>
               <div class="stat"><p class="label">Total Transport Cost</p><p class="value"><?= number_format($deliveryTotalCost, 2) ?></p></div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by driver and ranked by delay count, so drivers who need coaching or support surface first.</p>
             <div class="table-wrapper"><table>
               <thead><tr><th>Order</th><th>Date</th><th>Status</th><th>Cost</th></tr></thead>
               <tbody>
@@ -575,7 +577,6 @@ $generatedOn = date("Y-m-d H:i");
               <div class="stat warning"><p class="label">Total Expense</p><p class="value"><?= number_format($plByType["expense"]["total"], 2) ?></p></div>
               <div class="stat <?= $plNet >= 0 ? "good" : "warning" ?>"><p class="label">Net Result</p><p class="value"><?= number_format($plNet, 2) ?></p></div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped as a statement — Income then Expense, each broken down by category — instead of one mixed chronological list.</p>
             <div class="table-wrapper"><table>
               <thead><tr><th>Description</th><th>Amount</th><th>Date</th></tr></thead>
               <tbody>
@@ -635,7 +636,6 @@ $generatedOn = date("Y-m-d H:i");
               <div class="stat <?= $key === "needs_improvement" ? "warning" : "" ?>"><p class="label"><?= htmlspecialchars($label) ?></p><p class="value"><?= $employeeByStatus[$key]["count"] ?? 0 ?></p></div>
             <?php endforeach; ?>
           </div>
-          <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by rating tier, best to worst, so it reads as a performance distribution rather than a raw review list — Needs Improvement is the group worth a follow-up conversation.</p>
           <div class="table-wrapper"><table>
             <thead><tr><th>Employee</th><th>Job Title</th><th>Rating</th><th>Review Date</th></tr></thead>
             <tbody>
@@ -667,7 +667,6 @@ $generatedOn = date("Y-m-d H:i");
               <div class="stat"><p class="label">Completed Deliveries</p><p class="value"><?= $strategicSummary["completed_deliveries"] ?></p></div>
               <div class="stat"><p class="label">Avg. Employee Rating</p><p class="value"><?= $strategicSummary["avg_employee_rating"] ?>/5</p></div>
             </div>
-            <p style="padding: 0 20px 20px; color: #7f93b3; font-size: 13px;">One screen, the numbers a CEO checks first — revenue, cost, and margin next to the operational health signals (stock on hand, delivery completion, team performance) for the same period.</p>
           <?php endif; ?>
         </section>
       <?php endif; ?>
@@ -679,7 +678,6 @@ $generatedOn = date("Y-m-d H:i");
           <?php if ($fromDate === "" || $toDate === ""): ?>
             <p style="padding: 20px; color: #7f93b3;">Select a date range to generate this report.</p>
           <?php else: ?>
-            <p style="padding: 20px 20px 0; color: #7f93b3; font-size: 13px;">Grouped by the system area touched, ranked by activity volume — useful for spotting an area (e.g. user accounts, access privileges) with unusually heavy changes in the period.</p>
             <div class="table-wrapper"><table>
               <thead><tr><th>User</th><th>Role</th><th>Action</th><th>Date</th></tr></thead>
               <tbody>
@@ -695,7 +693,13 @@ $generatedOn = date("Y-m-d H:i");
           <?php endif; ?>
         </section>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>

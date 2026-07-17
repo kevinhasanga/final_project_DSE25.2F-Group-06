@@ -50,12 +50,34 @@ function require_login($requiredRole, $loginUrl = "../../login.php")
     }
 }
 
+const IDLE_TIMEOUT_SECONDS = 120;
+
+function isSessionIdleExpired()
+{
+    return isset($_SESSION["last_activity"]) &&
+        (time() - $_SESSION["last_activity"]) > IDLE_TIMEOUT_SECONDS;
+}
+
+function endIdleSession()
+{
+    $_SESSION = [];
+    session_destroy();
+}
+
 function requireAuthenticated($loginUrl = "login.php")
 {
     if (!isset($_SESSION["user_id"]) || !isset($_SESSION["role"])) {
         header("Location: " . $loginUrl);
         exit();
     }
+
+    if (isSessionIdleExpired()) {
+        endIdleSession();
+        header("Location: " . $loginUrl . "?timeout=1");
+        exit();
+    }
+
+    $_SESSION["last_activity"] = time();
 }
 
 function ensureCsrfToken()

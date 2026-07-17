@@ -112,9 +112,21 @@ th { color: #8798b5; background: #f7f9fc; font-size: 12px; text-transform: upper
 .report-print-header {
   display: none;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
-  border-bottom: 1px solid #dbe4ef;
+  gap: 18px;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, #f7f9fc 0%, #eef3f9 100%);
+  border-bottom: 3px solid #102242;
+  position: relative;
+}
+
+.report-print-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #102242 0%, #e72b80 100%);
 }
 
 .report-print-header.is-visible {
@@ -122,26 +134,39 @@ th { color: #8798b5; background: #f7f9fc; font-size: 12px; text-transform: upper
 }
 
 .report-logo {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
+  padding: 6px;
+  background-color: #ffffff;
+  border: 1px solid #dbe4ef;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(16, 34, 66, 0.08);
 }
 
 .report-header-text h2 {
   margin: 0;
   color: #00153a;
-  font-size: 17px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  letter-spacing: 0.4px;
 }
 
 .report-header-text .report-subtitle {
-  margin: 4px 0 0;
-  color: #00153a;
-  font-size: 14px;
+  display: inline-block;
+  margin: 6px 0 0;
+  padding: 3px 10px;
+  background-color: #102242;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 13px;
   font-weight: bold;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .report-header-text .report-meta {
-  margin: 2px 0 0;
+  margin: 6px 0 0;
   color: #7f93b3;
   font-size: 12px;
 }
@@ -149,35 +174,57 @@ th { color: #8798b5; background: #f7f9fc; font-size: 12px; text-transform: upper
 .report-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  padding: 20px;
+  gap: 14px;
+  padding: 22px 24px;
+  background-color: #fbfcfe;
   border-bottom: 1px solid #dbe4ef;
 }
 
 .report-summary .stat {
-  background-color: #f7f9fc;
+  background-color: #ffffff;
   border: 1px solid #e8eef5;
+  border-top: 3px solid #102242;
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(16, 34, 66, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.report-summary .stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(16, 34, 66, 0.1);
 }
 
 .report-summary .stat .label {
   margin: 0;
   color: #7f93b3;
   font-size: 11px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
 }
 
 .report-summary .stat .value {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: #00153a;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.report-summary .stat.warning {
+  border-top-color: #d71920;
 }
 
 .report-summary .stat.warning .value {
   color: #d71920;
+}
+
+.report-summary .stat.good {
+  border-top-color: #0f9d58;
+}
+
+.report-summary .stat.good .value {
+  color: #0f9d58;
 }
 
 tr.group-heading td {
@@ -186,14 +233,30 @@ tr.group-heading td {
   font-size: 13px;
   font-weight: bold;
   border-bottom: 1px solid #dbe4ef;
+  border-left: 4px solid #e72b80;
+}
+
+tr.subgroup-heading td {
+  background-color: #f7f9fc;
+  color: #46577a;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #e8eef5;
+  border-left: 4px solid #c7d4e6;
+  padding-left: 22px;
 }
 
 tfoot tr.grand-total td {
-  background-color: #eef3f9;
-  color: #00153a;
+  background-color: #102242;
+  color: #ffffff;
   font-weight: bold;
-  border-top: 2px solid #102242;
+  border-top: 2px solid #00153a;
   border-bottom: none;
+}
+
+.content.content-embed {
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 @page {
@@ -201,6 +264,11 @@ tfoot tr.grand-total td {
 }
 
 @media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .sidebar,
   .topbar,
   .no-print {
@@ -225,16 +293,23 @@ tfoot tr.grand-total td {
 
   .report-print-header {
     display: flex !important;
-    padding: 8px 0 !important;
+    padding: 10px 0 !important;
+    background: none !important;
+  }
+
+  .report-print-header::before {
+    display: none;
   }
 
   .report-summary {
     padding: 8px 0 !important;
     gap: 8px !important;
+    background: none !important;
   }
 
   .report-summary .stat {
     padding: 6px 8px !important;
+    box-shadow: none !important;
   }
 
   .report-summary .stat .value {

@@ -5,6 +5,14 @@ require_once "config.php";
 $error = "";
 $username = "";
 
+if (isset($_SESSION["role"]) && isSessionIdleExpired()) {
+    endIdleSession();
+}
+
+if (isset($_GET["timeout"])) {
+    $error = "You were logged out after 2 minutes of inactivity. Please log in again.";
+}
+
 // If the user is already logged in, send them back to their dashboard.
 if (isset($_SESSION["role"])) {
     $dashboard = getDashboard($_SESSION["role"]);
@@ -44,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["username"] = $user["username"];
             $_SESSION["full_name"] = $user["full_name"] ?: $user["username"];
             $_SESSION["role"] = $user["role"];
+            $_SESSION["last_activity"] = time();
 
             $loginStatement = mysqli_prepare($connection, "INSERT INTO login_history (user_id, login_time) VALUES (?, NOW())");
             mysqli_stmt_bind_param($loginStatement, "i", $user["user_id"]);

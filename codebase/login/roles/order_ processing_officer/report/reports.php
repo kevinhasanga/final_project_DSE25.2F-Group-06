@@ -6,6 +6,7 @@ require_login('Order Processing Officer', '../../../login.php');
 
 $activePage = "reports";
 $navBasePath = "../";
+$printView = ($_GET["print"] ?? "") === "1";
 
 $customers = getAllCustomers($connection);
 $reportType = $_GET["report_type"] ?? "";
@@ -158,6 +159,9 @@ $generatedOn = date("Y-m-d H:i");
   <link rel="stylesheet" href="../css/opo_style.css?v=<?= filemtime(__DIR__ . '/../css/opo_style.css') ?>">
 </head>
 <body>
+<?php if ($printView): ?>
+  <main class="content content-embed">
+<?php else: ?>
   <header class="topbar no-print"><h1>Order Processing</h1><p>Generate order reports and track daily sales totals</p></header>
   <div class="layout">
     <?php include __DIR__ . '/../nav.php'; ?>
@@ -166,7 +170,7 @@ $generatedOn = date("Y-m-d H:i");
 
       <section class="panel no-print">
         <h3>Generate Report</h3>
-        <form method="get" action="reports.php">
+        <form method="get" action="reports.php" id="reportFilterForm">
           <div class="form-grid">
             <div class="form-group">
               <label for="reportType">Report Type</label>
@@ -201,7 +205,7 @@ $generatedOn = date("Y-m-d H:i");
             </div>
             <div class="form-group">
               <label for="toDate">To Date (Orders report)</label>
-              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>">
+              <input type="date" id="toDate" name="to_date" value="<?= htmlspecialchars($toDate) ?>" data-after="#fromDate">
             </div>
             <div class="form-group">
               <label for="salesDate">Sales Date (Daily Sales report)</label>
@@ -211,6 +215,7 @@ $generatedOn = date("Y-m-d H:i");
           <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
         </form>
       </section>
+<?php endif; ?>
 
       <?php if ($reportType === "orders"): ?>
         <section class="panel">
@@ -240,7 +245,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value"><?= number_format($cancelledValue, 2) ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">Grouped by status with a count and total per group — Credit Exposure is money owed rather than collected, and Cancelled Value is demand that didn't convert to revenue.</p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Credit</th><th>Total</th></tr></thead>
@@ -302,11 +306,6 @@ $generatedOn = date("Y-m-d H:i");
                 <p class="value">Rs. <?= number_format($dailySummary["credit_sales"], 2) ?></p>
               </div>
             </div>
-            <p style="padding: 0 20px; color: #7f93b3; font-size: 13px;">
-              Grouped by payment type —
-              <?= $dailySummary["total_sales"] > 0 ? number_format($dailySummary["credit_sales"] / $dailySummary["total_sales"] * 100, 1) : "0.0" ?>%
-              of today's sales are on credit rather than collected cash, which is what actually funds tomorrow's purchasing.
-            </p>
             <div class="table-wrapper">
               <table>
                 <thead><tr><th>Order ID</th><th>Customer</th><th>Amount</th></tr></thead>
@@ -333,7 +332,13 @@ $generatedOn = date("Y-m-d H:i");
           </section>
         <?php endif; ?>
       <?php endif; ?>
+<?php if ($printView): ?>
+  </main>
+<?php else: ?>
     </main>
   </div>
+  <script src="../js/report_tab.js"></script>
+  <script src="../js/validate.js"></script>
+<?php endif; ?>
 </body>
 </html>
