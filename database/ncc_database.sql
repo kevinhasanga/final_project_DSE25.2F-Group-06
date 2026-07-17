@@ -395,17 +395,6 @@ CREATE TABLE financial_record (
     FOREIGN KEY (supplier_payment_id) REFERENCES supplier_payment(supplier_payment_id)
 );
 
-CREATE TABLE announcement (
-    announcement_id INT AUTO_INCREMENT PRIMARY KEY,
-    sent_by INT NOT NULL,
-    title VARCHAR(150) NOT NULL,
-    message TEXT NOT NULL,
-    receiver_id INT,
-    created_at DATETIME NOT NULL,
-    FOREIGN KEY (sent_by) REFERENCES employee(employee_id),
-    FOREIGN KEY (receiver_id) REFERENCES employee(employee_id)
-);
-
 CREATE TABLE internal_email (
     email_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
@@ -6225,17 +6214,6 @@ INSERT INTO account_reconciliation (account_number, reconciliation_date, system_
 ('NCC-BOC-0021458796', '2026-04-27', 4910971.34, 4910971.34, 'matched', 'Reconciled with no discrepancies.', 9),
 ('NCC-BOC-0021458796', '2026-05-28', 2695355.76, 2695355.76, 'matched', 'Reconciled with no discrepancies.', 9),
 ('NCC-BOC-0021458796', '2026-06-26', 4579287.61, 4575745.15, 'difference_found', 'Discrepancy under investigation with bank statement.', 9);
-
--- announcement
-INSERT INTO announcement (sent_by, title, message, receiver_id, created_at) VALUES
-(13, 'Public Holiday Notice', 'The office will be closed for the upcoming public holiday.', NULL, '2026-01-28 15:48:00'),
-(8, 'New Bio Pesticide Range Launch', 'Sales and CRM teams, please review the new product training materials.', NULL, '2026-02-02 13:28:00'),
-(13, 'Quarterly All-Hands Meeting', 'All staff are invited to the quarterly review meeting.', NULL, '2026-03-18 09:25:00'),
-(8, 'Warehouse Safety Reminder', 'Please review updated safety procedures for the warehouse.', NULL, '2026-04-10 10:28:00'),
-(8, 'System Maintenance Window', 'The system will be briefly unavailable during scheduled maintenance.', NULL, '2026-04-22 09:59:00'),
-(13, 'Employee of the Month', 'Congratulations to this month\'s top performer.', NULL, '2026-04-25 14:42:00'),
-(13, 'Updated Leave Policy', 'Please review the updated leave request policy effective this month.', NULL, '2026-05-03 12:37:00'),
-(13, 'Fleet Vehicle Servicing', 'All delivery vehicles will undergo routine servicing this week.', NULL, '2026-05-13 10:22:00');
 
 -- internal_email
 INSERT INTO internal_email (sender_id, recipient_id, subject, message, sent_at, read_at) VALUES
