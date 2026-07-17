@@ -38,14 +38,14 @@ function getDashboard($role)
     return $dashboards[normalizeRole($role)] ?? "";
 }
 
-function require_login($requiredRole)
+function require_login($requiredRole, $loginUrl = "../../login.php")
 {
-    requireAuthenticated("../../login.php");
+    requireAuthenticated($loginUrl);
 
     if (
         normalizeRole($_SESSION["role"]) != normalizeRole($requiredRole)
     ) {
-        header("Location: ../../login.php");
+        header("Location: " . $loginUrl);
         exit();
     }
 }

@@ -245,7 +245,7 @@ $roleNavigation = [
             ["Stock Availability", "roles/order_%20processing_officer/stock_availability.php"],
             ["Credit Approval", "roles/order_%20processing_officer/credit_approval.php"],
             ["Invoices", "roles/order_%20processing_officer/invoices.php"],
-            ["Reports", "roles/order_%20processing_officer/reports.php"],
+            ["Reports", "roles/order_%20processing_officer/report/reports.php"],
         ],
     ],
     "customer_relation_manager" => [
@@ -256,7 +256,7 @@ $roleNavigation = [
             ["Purchase History", "roles/customer_relation_manager/purchase_history.php"],
             ["Complaints", "roles/customer_relation_manager/complaints.php"],
             ["Promotions", "roles/customer_relation_manager/promotions.php"],
-            ["Reports", "roles/customer_relation_manager/reports.php"],
+            ["Reports", "roles/customer_relation_manager/report/reports.php"],
         ],
     ],
     "supervisor" => [
@@ -264,6 +264,7 @@ $roleNavigation = [
         "links" => [
             ["Dashboard", "roles/supervisor/supervisor_dashboard.php"],
             ["Attendance", "roles/supervisor/attendance.php"],
+            ["Reports", "roles/supervisor/report/reports.php"],
             ["Leave Requests", "roles/supervisor/leave_requests.php"],
             ["Employees", "roles/supervisor/employees.php"],
             ["Payroll", "roles/supervisor/payroll.php"],
@@ -277,7 +278,7 @@ $roleNavigation = [
             ["Income & Expenses", "roles/finance_officer/income_expenses.php"],
             ["Supplier Payments", "roles/finance_officer/supplier_payments.php"],
             ["Receivables", "roles/finance_officer/receivables.php"],
-            ["Reports", "roles/finance_officer/reports.php"],
+            ["Reports", "roles/finance_officer/report/reports.php"],
             ["Budget Utilization", "roles/finance_officer/budget_utilization.php"],
             ["Reconciliation", "roles/finance_officer/reconciliation.php"],
         ],
@@ -289,7 +290,7 @@ $roleNavigation = [
             ["Products", "roles/inventory_manager/products.php"],
             ["Stock Batches", "roles/inventory_manager/stock_batches.php"],
             ["Returns & Transfers", "roles/inventory_manager/stock_movements.php"],
-            ["Reports", "roles/inventory_manager/reports.php"],
+            ["Reports", "roles/inventory_manager/report/reports.php"],
             ["Low Stock Alerts", "roles/inventory_manager/low_stock_alerts.php"],
         ],
     ],
@@ -300,7 +301,7 @@ $roleNavigation = [
             ["Confirmed Orders", "roles/distribution_manager/confirmed_orders.php"],
             ["Deliveries", "roles/distribution_manager/deliveries.php"],
             ["Delayed Deliveries", "roles/distribution_manager/delayed_deliveries.php"],
-            ["Reports", "roles/distribution_manager/reports.php"],
+            ["Reports", "roles/distribution_manager/report/reports.php"],
         ],
     ],
     "system_admin" => [
@@ -312,7 +313,7 @@ $roleNavigation = [
             ["Settings", "roles/system_administrator/settings.php"],
             ["Backups", "roles/system_administrator/backups.php"],
             ["System Errors", "roles/system_administrator/system_errors.php"],
-            ["Reports", "roles/system_administrator/reports.php"],
+            ["Reports", "roles/system_administrator/report/reports.php"],
         ],
     ],
     "ceo_head_manager" => [
@@ -320,7 +321,7 @@ $roleNavigation = [
         "links" => [
             ["Dashboard", "roles/ceo_head_manager/ceo_dashboard.php"],
             ["Profile", "roles/ceo_head_manager/profile.php"],
-            ["Reports", "roles/ceo_head_manager/reports.php"],
+            ["Reports", "roles/ceo_head_manager/report/reports.php"],
             ["Approvals", "roles/ceo_head_manager/approvals.php"],
             ["Department Targets", "roles/ceo_head_manager/department_targets.php"],
             ["Complaints", "roles/ceo_head_manager/complaints.php"],

@@ -90,96 +90,6 @@ $attendanceRecords = mysqli_query(
      ORDER BY a.date DESC, a.attendance_id DESC
      LIMIT $perPage OFFSET $offset"
 );
-
-$reportFrom = $_GET["report_from"] ?? "";
-$reportTo = $_GET["report_to"] ?? "";
-$reportEmployee = (int) ($_GET["report_employee"] ?? 0);
-$report = [];
-
-if ($reportFrom !== "" && $reportTo !== "") {
-    $employeesById = [];
-    foreach ($employees as $employee) {
-        $employeesById[$employee["employee_id"]] = $employee["full_name"];
-        $report[$employee["employee_id"]] = [
-            "full_name" => $employee["full_name"],
-            "present_days" => 0,
-            "absent_days" => 0,
-            "leave_days" => 0,
-        ];
-    }
-
-    $presenceSql = "SELECT employee_id,
-                            SUM(clock_in IS NOT NULL) AS present_days,
-                            SUM(clock_in IS NULL) AS absent_days
-                     FROM attendance
-                     WHERE date BETWEEN ? AND ?";
-    $params = [$reportFrom, $reportTo];
-    $types = "ss";
-    if ($reportEmployee > 0) {
-        $presenceSql .= " AND employee_id = ?";
-        $params[] = $reportEmployee;
-        $types .= "i";
-    }
-    $presenceSql .= " GROUP BY employee_id";
-
-    $statement = mysqli_prepare($connection, $presenceSql);
-    mysqli_stmt_bind_param($statement, $types, ...$params);
-    mysqli_stmt_execute($statement);
-    $presenceResult = mysqli_stmt_get_result($statement);
-    while ($row = mysqli_fetch_assoc($presenceResult)) {
-        $employeeId = (int) $row["employee_id"];
-        if (!isset($report[$employeeId])) {
-            $report[$employeeId] = [
-                "full_name" => $employeesById[$employeeId] ?? "Employee #$employeeId",
-                "present_days" => 0,
-                "absent_days" => 0,
-                "leave_days" => 0,
-            ];
-        }
-        $report[$employeeId]["present_days"] = (int) $row["present_days"];
-        $report[$employeeId]["absent_days"] = (int) $row["absent_days"];
-    }
-    mysqli_stmt_close($statement);
-
-    $leaveSql = "SELECT employee_id, start_date, end_date
-                 FROM leave_request
-                 WHERE status = 'approved' AND start_date <= ? AND end_date >= ?";
-    $leaveParams = [$reportTo, $reportFrom];
-    $leaveTypes = "ss";
-    if ($reportEmployee > 0) {
-        $leaveSql .= " AND employee_id = ?";
-        $leaveParams[] = $reportEmployee;
-        $leaveTypes .= "i";
-    }
-
-    $statement = mysqli_prepare($connection, $leaveSql);
-    mysqli_stmt_bind_param($statement, $leaveTypes, ...$leaveParams);
-    mysqli_stmt_execute($statement);
-    $leaveResult = mysqli_stmt_get_result($statement);
-    $rangeStart = new DateTime($reportFrom);
-    $rangeEnd = new DateTime($reportTo);
-    while ($row = mysqli_fetch_assoc($leaveResult)) {
-        $employeeId = (int) $row["employee_id"];
-        $leaveStart = max(new DateTime($row["start_date"]), $rangeStart);
-        $leaveEnd = min(new DateTime($row["end_date"]), $rangeEnd);
-        $overlapDays = (int) $leaveStart->diff($leaveEnd)->days + 1;
-
-        if (!isset($report[$employeeId])) {
-            $report[$employeeId] = [
-                "full_name" => $employeesById[$employeeId] ?? "Employee #$employeeId",
-                "present_days" => 0,
-                "absent_days" => 0,
-                "leave_days" => 0,
-            ];
-        }
-        $report[$employeeId]["leave_days"] += $overlapDays;
-    }
-    mysqli_stmt_close($statement);
-
-    $report = array_filter($report, function ($row) {
-        return $row["present_days"] > 0 || $row["absent_days"] > 0 || $row["leave_days"] > 0;
-    });
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -190,13 +100,13 @@ if ($reportFrom !== "" && $reportTo !== "") {
   <link rel="stylesheet" href="css/supervisor_style.css">
 </head>
 <body>
-  <header class="topbar"><h1>Supervisor</h1><p>Attendance, clock times, overtime, and reports</p></header>
+  <header class="topbar"><h1>Supervisor</h1><p>Attendance, clock times, and overtime</p></header>
   <div class="layout">
     <?php include __DIR__ . '/nav.php'; ?>
     <main class="content">
       <section class="page-title">
         <h2>Attendance</h2>
-        <p>Record daily attendance, clock times, and overtime, and generate attendance reports.</p>
+        <p>Record daily attendance, clock times, and overtime. Head to <a href="report/reports.php">Reports</a> to generate an attendance report.</p>
       </section>
 
       <?php if ($flash = popFlash()): ?>
@@ -245,51 +155,6 @@ if ($reportFrom !== "" && $reportTo !== "") {
             <?php endif; ?>
           </div>
         </form>
-      </section>
-
-      <section class="panel">
-        <h3>Attendance Reports</h3>
-        <form method="get" action="attendance.php">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="reportEmployee">Employee (optional)</label>
-              <select id="reportEmployee" name="report_employee">
-                <option value="0">All employees</option>
-                <?php foreach ($employees as $employee): ?>
-                  <option value="<?= $employee["employee_id"] ?>" <?= $reportEmployee == $employee["employee_id"] ? "selected" : "" ?>>
-                    <?= htmlspecialchars($employee["full_name"]) ?>
-                  </option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="reportFrom">From</label>
-              <input type="date" id="reportFrom" name="report_from" value="<?= htmlspecialchars($reportFrom) ?>" required>
-            </div>
-            <div class="form-group">
-              <label for="reportTo">To</label>
-              <input type="date" id="reportTo" name="report_to" value="<?= htmlspecialchars($reportTo) ?>" required>
-            </div>
-          </div>
-          <div class="button-row"><button class="btn" type="submit">Generate Report</button></div>
-        </form>
-        <?php if (!empty($report)): ?>
-          <div class="table-wrapper">
-            <table>
-              <thead><tr><th>Employee</th><th>Present Days</th><th>Absent Days</th><th>Leave Days</th></tr></thead>
-              <tbody>
-                <?php foreach ($report as $row): ?>
-                  <tr>
-                    <td><?= htmlspecialchars($row["full_name"]) ?></td>
-                    <td><?= $row["present_days"] ?></td>
-                    <td><?= $row["absent_days"] ?></td>
-                    <td><?= $row["leave_days"] ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
-          </div>
-        <?php endif; ?>
       </section>
 
       <section class="panel">
