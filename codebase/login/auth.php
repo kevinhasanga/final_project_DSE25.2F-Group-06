@@ -50,7 +50,7 @@ function require_login($requiredRole, $loginUrl = "../../login.php")
     }
 }
 
-const IDLE_TIMEOUT_SECONDS = 120;
+const IDLE_TIMEOUT_SECONDS = 1800;
 
 function isSessionIdleExpired()
 {
