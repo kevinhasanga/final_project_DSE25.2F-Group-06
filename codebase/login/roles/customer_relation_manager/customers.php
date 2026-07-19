@@ -84,7 +84,7 @@ if ($search !== "") {
     $countSql .= " WHERE name LIKE ? OR email LIKE ? OR contact_no LIKE ?";
 }
 $totalCustomers = countRows($connection, $countSql, $types, $params);
-$perPage = 10;
+$perPage = 5;
 $totalCustomerPages = max(1, (int) ceil($totalCustomers / $perPage));
 $currentPage = min(getCurrentPage(), $totalCustomerPages);
 $offset = ($currentPage - 1) * $perPage;

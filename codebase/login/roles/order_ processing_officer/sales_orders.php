@@ -198,7 +198,7 @@ if (isset($_GET["edit"])) {
     }
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalOrders = countRows($connection, "SELECT COUNT(*) FROM sales_order");
 $totalOrderPages = max(1, (int) ceil($totalOrders / $perPage));
 $currentPage = min(getCurrentPage(), $totalOrderPages);

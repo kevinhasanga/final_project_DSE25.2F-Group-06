@@ -90,7 +90,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_close($statement);
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalPayrollRecords = countRows(
     $connection,
     "SELECT COUNT(*) FROM payroll p JOIN employee e ON e.employee_id = p.employee_id"

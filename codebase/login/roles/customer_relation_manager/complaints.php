@@ -72,7 +72,7 @@ if (isset($_GET["edit"])) {
 
 $customers = getAllCustomers($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalComplaints = countRows($connection, "SELECT COUNT(*) FROM complaint c JOIN customer cu ON cu.customer_id = c.customer_id");
 $totalComplaintPages = max(1, (int) ceil($totalComplaints / $perPage));
 $currentPage = min(getCurrentPage(), $totalComplaintPages);

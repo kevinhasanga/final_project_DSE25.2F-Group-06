@@ -138,7 +138,7 @@ $unscheduledOrders = mysqli_query(
 );
 $unscheduledOrders = mysqli_fetch_all($unscheduledOrders, MYSQLI_ASSOC);
 
-$perPage = 10;
+$perPage = 5;
 $totalDeliveries = countRows($connection, "SELECT COUNT(*) FROM delivery");
 $totalDeliveryPages = max(1, (int) ceil($totalDeliveries / $perPage));
 $currentPage = min(getCurrentPage(), $totalDeliveryPages);

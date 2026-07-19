@@ -107,7 +107,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_close($statement);
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalUsers = countRows($connection, "SELECT COUNT(*) FROM user_account");
 $totalUserPages = max(1, (int) ceil($totalUsers / $perPage));
 $currentPage = min(getCurrentPage(), $totalUserPages);

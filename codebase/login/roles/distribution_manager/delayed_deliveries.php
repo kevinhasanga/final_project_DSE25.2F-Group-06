@@ -71,7 +71,7 @@ $activeDeliveries = mysqli_query(
 );
 $activeDeliveries = mysqli_fetch_all($activeDeliveries, MYSQLI_ASSOC);
 
-$perPage = 10;
+$perPage = 5;
 
 $totalDelayed = countRows($connection, "SELECT COUNT(*) FROM delivery d WHERE d.status = 'delayed'");
 $totalDelayedPages = max(1, (int) ceil($totalDelayed / $perPage));

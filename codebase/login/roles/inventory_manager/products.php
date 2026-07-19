@@ -69,7 +69,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_close($statement);
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalProducts = countRows($connection, "SELECT COUNT(*) FROM product");
 $totalProductPages = max(1, (int) ceil($totalProducts / $perPage));
 $currentPage = min(getCurrentPage(), $totalProductPages);

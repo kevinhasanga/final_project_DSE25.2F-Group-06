@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalBudgets = countRows($connection, "SELECT COUNT(*) FROM budget_plan WHERE status = 'approved'");
 $totalBudgetPages = max(1, (int) ceil($totalBudgets / $perPage));
 $currentPage = min(getCurrentPage(), $totalBudgetPages);

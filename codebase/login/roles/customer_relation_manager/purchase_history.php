@@ -12,7 +12,7 @@ $customerId = (int) ($_GET["customer_id"] ?? 0);
 
 $purchases = [];
 $totalPurchases = 0;
-$perPage = 10;
+$perPage = 5;
 $currentPage = 1;
 if ($customerId > 0) {
     $totalPurchases = countRows(

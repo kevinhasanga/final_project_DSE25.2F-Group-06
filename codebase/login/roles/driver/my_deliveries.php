@@ -45,7 +45,7 @@ if ($search !== "") {
     });
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalDeliveries = count($deliveries);
 $totalDeliveryPages = max(1, (int) ceil($totalDeliveries / $perPage));
 $currentPage = min(getCurrentPage(), $totalDeliveryPages);

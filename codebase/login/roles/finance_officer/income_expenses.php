@@ -82,7 +82,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_close($statement);
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalRecords = countRows($connection, "SELECT COUNT(*) FROM financial_record");
 $totalRecordPages = max(1, (int) ceil($totalRecords / $perPage));
 $currentPage = min(getCurrentPage(), $totalRecordPages);

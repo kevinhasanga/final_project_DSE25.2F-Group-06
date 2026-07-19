@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalCreditOrders = countRows($connection, "SELECT COUNT(*) FROM sales_order so WHERE so.is_credit = 1");
 $totalCreditOrderPages = max(1, (int) ceil($totalCreditOrders / $perPage));
 $currentPage = min(getCurrentPage(), $totalCreditOrderPages);

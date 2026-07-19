@@ -71,7 +71,7 @@ $backupsForRestore = mysqli_fetch_all(
     MYSQLI_ASSOC
 );
 
-$perPage = 10;
+$perPage = 5;
 $totalRecords = countRows($connection, "SELECT COUNT(*) FROM backup_record");
 $totalRecordPages = max(1, (int) ceil($totalRecords / $perPage));
 $currentPage = min(getCurrentPage(), $totalRecordPages);

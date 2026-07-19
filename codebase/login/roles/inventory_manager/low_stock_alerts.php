@@ -7,7 +7,7 @@ require_login('Inventory Manager');
 
 $activePage = "alerts";
 
-$perPage = 10;
+$perPage = 5;
 $totalLowStock = countRows(
     $connection,
     "SELECT COUNT(*) FROM (

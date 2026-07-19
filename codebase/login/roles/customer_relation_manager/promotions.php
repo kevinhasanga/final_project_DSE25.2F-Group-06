@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalNotifications = countRows($connection, "SELECT COUNT(*) FROM promotional_notification pn JOIN employee e ON e.employee_id = pn.sent_by");
 $totalNotificationPages = max(1, (int) ceil($totalNotifications / $perPage));
 $currentPage = min(getCurrentPage(), $totalNotificationPages);

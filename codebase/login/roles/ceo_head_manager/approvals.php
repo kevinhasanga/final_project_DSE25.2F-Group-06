@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $suppliers = mysqli_fetch_all(mysqli_query($connection, "SELECT supplier_id, supplier_name FROM supplier ORDER BY supplier_name"), MYSQLI_ASSOC);
 
-$perPage = 10;
+$perPage = 5;
 
 $totalBudgets = countRows($connection, "SELECT COUNT(*) FROM budget_plan");
 $totalBudgetPages = max(1, (int) ceil($totalBudgets / $perPage));

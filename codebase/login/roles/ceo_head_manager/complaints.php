@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalComplaints = countRows(
     $connection,
     "SELECT COUNT(*) FROM complaint c WHERE c.escalated_to IS NOT NULL"

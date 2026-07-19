@@ -22,7 +22,7 @@ if ($search !== "") {
     $types = "si";
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalEmployees = countRows($connection, "SELECT COUNT(*) FROM employee" . $whereClause, $types, $params);
 $totalEmployeePages = max(1, (int) ceil($totalEmployees / $perPage));
 $currentPage = min(getCurrentPage(), $totalEmployeePages);

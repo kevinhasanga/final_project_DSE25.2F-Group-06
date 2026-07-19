@@ -23,7 +23,7 @@ if ($search !== "") {
 }
 $sql .= " ORDER BY so.order_date DESC";
 
-$perPage = 10;
+$perPage = 5;
 $countSql = "SELECT COUNT(*) FROM sales_order so
         JOIN customer cu ON cu.customer_id = so.customer_id
         LEFT JOIN delivery d ON d.order_id = so.order_id

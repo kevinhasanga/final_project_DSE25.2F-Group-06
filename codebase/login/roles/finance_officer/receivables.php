@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalReceivables = countRows($connection, "SELECT COUNT(*) FROM invoice WHERE payment_status != 'paid'");
 $totalReceivablePages = max(1, (int) ceil($totalReceivables / $perPage));
 $currentPage = min(getCurrentPage(), $totalReceivablePages);

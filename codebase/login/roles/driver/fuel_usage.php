@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $deliveries = getDriverDeliveries($connection, $currentDriverId);
 
-$perPage = 10;
+$perPage = 5;
 $totalFuelRecords = countRows(
     $connection,
     "SELECT COUNT(*) FROM fuel_usage fu JOIN delivery d ON d.delivery_id = fu.delivery_id JOIN vehicle v ON v.vehicle_id = d.vehicle_id WHERE fu.driver_id = ?",

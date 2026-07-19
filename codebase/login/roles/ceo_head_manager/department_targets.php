@@ -70,7 +70,7 @@ if (isset($_GET["edit"])) {
     mysqli_stmt_close($statement);
 }
 
-$perPage = 10;
+$perPage = 5;
 $totalTargets = countRows($connection, "SELECT COUNT(*) FROM department_target");
 $totalTargetPages = max(1, (int) ceil($totalTargets / $perPage));
 $currentPage = min(getCurrentPage(), $totalTargetPages);

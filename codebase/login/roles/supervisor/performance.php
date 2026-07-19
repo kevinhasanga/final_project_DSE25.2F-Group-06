@@ -73,7 +73,7 @@ if (isset($_GET["edit"])) {
 
 $employees = getAllEmployees($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalPerformanceRecords = countRows(
     $connection,
     "SELECT COUNT(*) FROM performance_review pr JOIN employee e ON e.employee_id = pr.employee_id"

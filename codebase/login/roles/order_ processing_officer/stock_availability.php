@@ -24,7 +24,7 @@ if ($search !== "") {
 
 $sql .= " GROUP BY p.product_id, p.product_name, p.min_stock_level ORDER BY p.product_name";
 
-$perPage = 10;
+$perPage = 5;
 $countSql = "SELECT COUNT(*) FROM product p";
 if ($search !== "") {
     $countSql .= " WHERE p.product_name LIKE ? OR p.product_id = ?";

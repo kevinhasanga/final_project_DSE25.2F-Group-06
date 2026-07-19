@@ -73,7 +73,7 @@ if (isset($_GET["edit"])) {
 $suppliers = mysqli_fetch_all(mysqli_query($connection, "SELECT supplier_id, supplier_name FROM supplier ORDER BY supplier_name"), MYSQLI_ASSOC);
 $purchaseOrders = mysqli_fetch_all(mysqli_query($connection, "SELECT purchase_id, total_amount FROM purchase_order ORDER BY purchase_id DESC"), MYSQLI_ASSOC);
 
-$perPage = 10;
+$perPage = 5;
 $totalPayments = countRows($connection, "SELECT COUNT(*) FROM supplier_payment");
 $totalPaymentPages = max(1, (int) ceil($totalPayments / $perPage));
 $currentPage = min(getCurrentPage(), $totalPaymentPages);

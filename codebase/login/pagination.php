@@ -28,7 +28,7 @@ function countRows($connection, $countSql, $paramTypes = "", $params = [])
 
 // Renders a "Previous / Page X of Y / Next" bar. $page is clamped to
 // [1, totalPages] by the caller before running the LIMIT/OFFSET query.
-function renderPagination($page, $totalRows, $perPage = 10, $paramName = "page")
+function renderPagination($page, $totalRows, $perPage = 5, $paramName = "page")
 {
     $totalPages = max(1, (int) ceil($totalRows / $perPage));
     if ($totalPages <= 1) {

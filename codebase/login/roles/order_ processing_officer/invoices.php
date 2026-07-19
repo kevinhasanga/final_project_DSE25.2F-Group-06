@@ -100,7 +100,7 @@ $uninvoicedOrders = mysqli_query(
 );
 $uninvoicedOrders = mysqli_fetch_all($uninvoicedOrders, MYSQLI_ASSOC);
 
-$perPage = 10;
+$perPage = 5;
 $totalInvoices = countRows($connection, "SELECT COUNT(*) FROM invoice inv");
 $totalInvoicePages = max(1, (int) ceil($totalInvoices / $perPage));
 $currentPage = min(getCurrentPage(), $totalInvoicePages);

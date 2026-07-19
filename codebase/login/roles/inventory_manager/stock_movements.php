@@ -74,7 +74,7 @@ if (isset($_GET["edit"])) {
 
 $products = getAllProducts($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalMovements = countRows($connection, "SELECT COUNT(*) FROM stock_movement WHERE movement_type IN ('return', 'transfer')");
 $totalMovementPages = max(1, (int) ceil($totalMovements / $perPage));
 $currentPage = min(getCurrentPage(), $totalMovementPages);

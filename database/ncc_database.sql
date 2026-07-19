@@ -26,20 +26,22 @@ CREATE TABLE employee (
 );
 
 CREATE TABLE login_history (
-    login_id INT AUTO_INCREMENT PRIMARY KEY,
+    login_id INT AUTO_INCREMENT UNIQUE,
     user_id INT NOT NULL,
     login_time DATETIME NOT NULL,
     logout_time DATETIME,
+    PRIMARY KEY (user_id, login_time),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
 CREATE TABLE audit_log (
-    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    log_id INT AUTO_INCREMENT UNIQUE,
     user_id INT NOT NULL,
     action VARCHAR(100) NOT NULL,
     target_table VARCHAR(100),
     target_id INT,
     timestamp DATETIME NOT NULL,
+    PRIMARY KEY (user_id, timestamp),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
@@ -139,19 +141,20 @@ CREATE TABLE sales_order (
 );
 
 CREATE TABLE order_item (
-    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    item_id INT AUTO_INCREMENT UNIQUE,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
     line_total DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (order_id) REFERENCES sales_order(order_id),
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );
 
 CREATE TABLE invoice (
-    invoice_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL UNIQUE,
+    invoice_id INT AUTO_INCREMENT UNIQUE,
+    order_id INT NOT NULL PRIMARY KEY,
     issue_date DATE NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
     discount_amount DECIMAL(10,2) NOT NULL,
@@ -183,8 +186,8 @@ CREATE TABLE vehicle (
 );
 
 CREATE TABLE delivery (
-    delivery_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL UNIQUE,
+    delivery_id INT AUTO_INCREMENT UNIQUE,
+    order_id INT NOT NULL PRIMARY KEY,
     driver_id INT NOT NULL,
     vehicle_id INT NOT NULL,
     scheduled_date DATE NOT NULL,
@@ -197,8 +200,8 @@ CREATE TABLE delivery (
 );
 
 CREATE TABLE delivery_proof (
-    proof_id INT AUTO_INCREMENT PRIMARY KEY,
-    delivery_id INT NOT NULL UNIQUE,
+    proof_id INT AUTO_INCREMENT UNIQUE,
+    delivery_id INT NOT NULL PRIMARY KEY,
     image_url VARCHAR(255),
     uploaded_at DATETIME NOT NULL,
     received_by_name VARCHAR(100) NOT NULL,
@@ -229,13 +232,14 @@ CREATE TABLE fuel_usage (
 );
 
 CREATE TABLE attendance (
-    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    attendance_id INT AUTO_INCREMENT UNIQUE,
     employee_id INT NOT NULL,
     recorded_by INT,
     date DATE NOT NULL,
     clock_in TIME,
     clock_out TIME,
     overtime_hours DECIMAL(5,2) NOT NULL,
+    PRIMARY KEY (employee_id, date),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
     FOREIGN KEY (recorded_by) REFERENCES employee(employee_id)
 );
@@ -254,7 +258,7 @@ CREATE TABLE leave_request (
 );
 
 CREATE TABLE payroll (
-    payroll_id INT AUTO_INCREMENT PRIMARY KEY,
+    payroll_id INT AUTO_INCREMENT UNIQUE,
     employee_id INT NOT NULL,
     generated_by INT NOT NULL,
     period VARCHAR(20) NOT NULL,
@@ -263,18 +267,20 @@ CREATE TABLE payroll (
     deductions DECIMAL(10,2) NOT NULL,
     net_pay DECIMAL(10,2) NOT NULL,
     generated_date DATETIME NOT NULL,
+    PRIMARY KEY (employee_id, period),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
     FOREIGN KEY (generated_by) REFERENCES employee(employee_id)
 );
 
 CREATE TABLE performance_review (
-    performance_id INT AUTO_INCREMENT PRIMARY KEY,
+    performance_id INT AUTO_INCREMENT UNIQUE,
     employee_id INT NOT NULL,
     reviewed_by INT NOT NULL,
     review_date DATE NOT NULL,
     rating INT NOT NULL,
     status VARCHAR(30) NOT NULL,
     comments TEXT,
+    PRIMARY KEY (employee_id, review_date),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
     FOREIGN KEY (reviewed_by) REFERENCES employee(employee_id)
 );
@@ -294,12 +300,13 @@ CREATE TABLE purchase_order (
 );
 
 CREATE TABLE purchase_item (
-    purchase_item_id INT AUTO_INCREMENT PRIMARY KEY,
+    purchase_item_id INT AUTO_INCREMENT UNIQUE,
     purchase_id INT NOT NULL,
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     unit_cost DECIMAL(10,2) NOT NULL,
     line_total DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (purchase_id, product_id),
     FOREIGN KEY (purchase_id) REFERENCES purchase_order(purchase_id),
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 );

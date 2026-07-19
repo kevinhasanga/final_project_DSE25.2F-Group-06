@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 $deliveries = getDriverDeliveries($connection, $currentDriverId);
 
-$perPage = 10;
+$perPage = 5;
 $totalProofs = countRows(
     $connection,
     "SELECT COUNT(*) FROM delivery_proof dp JOIN delivery d ON d.delivery_id = dp.delivery_id WHERE d.driver_id = ?",

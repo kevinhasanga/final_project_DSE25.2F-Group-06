@@ -117,7 +117,7 @@ if (isset($_GET["edit"])) {
 $products = getAllProducts($connection);
 $suppliers = getAllSuppliers($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalBatches = countRows($connection, "SELECT COUNT(*) FROM stock_batch");
 $totalBatchPages = max(1, (int) ceil($totalBatches / $perPage));
 $currentPage = min(getCurrentPage(), $totalBatchPages);

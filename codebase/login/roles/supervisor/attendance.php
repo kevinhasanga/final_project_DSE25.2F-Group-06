@@ -73,7 +73,7 @@ if (isset($_GET["edit"])) {
 
 $employees = getAllEmployees($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalAttendanceRecords = countRows(
     $connection,
     "SELECT COUNT(*) FROM attendance a JOIN employee e ON e.employee_id = a.employee_id"

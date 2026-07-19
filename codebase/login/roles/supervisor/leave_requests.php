@@ -89,7 +89,7 @@ if (isset($_GET["edit"])) {
 
 $employees = getAllEmployees($connection);
 
-$perPage = 10;
+$perPage = 5;
 $totalLeaveRequests = countRows(
     $connection,
     "SELECT COUNT(*) FROM leave_request lr JOIN employee e ON e.employee_id = lr.employee_id"
