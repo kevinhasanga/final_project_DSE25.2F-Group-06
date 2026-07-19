@@ -10,7 +10,7 @@ if (isset($_SESSION["role"]) && isSessionIdleExpired()) {
 }
 
 if (isset($_GET["timeout"])) {
-    $error = "You were logged out after 2 minutes of inactivity. Please log in again.";
+    $error = "You were logged out after 30 minutes of inactivity. Please log in again.";
 }
 
 // If the user is already logged in, send them back to their dashboard.
